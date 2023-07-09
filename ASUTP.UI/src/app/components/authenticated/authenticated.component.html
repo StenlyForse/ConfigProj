@@ -1,0 +1,25 @@
+<div class="container my-5">
+    <h1 class="mb-3">Авторизация</h1>
+
+    <div class="row">
+        <div class="col-6">
+            <form #form="ngForm" (ngSubmit)="authUser()">
+                <div class="mb-3">
+                  <label for="elementInput" class="form-label">Username</label>
+                  <input type="text" class="form-control" id="elementInput" aria-describedby="elementHelp"
+                  name="username" [(ngModel)]="authUserRequest.username">
+                  <div id="elementHelp" class="form-text">Введите имя пользователя</div>
+                </div>
+                <div class="mb-3">
+                   <label for="referenceInput" class="form-label">Password</label>
+                   <input type="password" class="form-control" id="referenceInput" aria-describedby="referenceHelp"
+                   name="password" [(ngModel)]="authUserRequest.password">
+                   <div id="referenceHelp" class="form-text">Введите пароль</div>
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,51 @@
+<div class="container my-5">
+    <h1 class="mb-3">Изменить элемент каталога</h1>
+
+    <div class="row">
+        <div class="col-6">
+            <form #form="ngForm" (ngSubmit)="updateCatalogElem()">
+                <div class="mb-3">
+                  <label for="elementInput" class="form-label">Element</label>
+                  <input type="text" class="form-control" id="elementInput" aria-describedby="elementHelp"
+                  name="element" [(ngModel)]="catalogElemDetails.element">
+                  <div id="elementHelp" class="form-text">Введите элемент, например "SCALANCE S602"</div>
+                </div>
+                <div class="mb-3">
+                   <label for="referenceInput" class="form-label">Reference</label>
+                   <input type="text" class="form-control" id="referenceInput" aria-describedby="referenceHelp"
+                   name="reference" [(ngModel)]="catalogElemDetails.reference">
+                   <div id="referenceHelp" class="form-text">Введите номер, например "516814-В21"</div>
+                </div>
+                <div class="mb-3">
+                  <label for="nameInput" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="nameInput" aria-describedby="nameHelp"
+                  name="name" [(ngModel)]="catalogElemDetails.name">
+                  <div id="nameHelp" class="form-text">Введите название, например "Компьютер HP Z420"</div>
+                </div>
+                <div class="mb-3">
+                    <label for="priceInput" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="priceInput" aria-describedby="priceHelp"
+                    name="price" [(ngModel)]="catalogElemDetails.price_wo_tax">
+                    <div id="priceHelp" class="form-text">Введите цену</div>
+                </div>
+                <div class="mb-3">
+                    <label for="currInput" class="form-label">Current</label>
+                    <input type="text" class="form-control" id="currInput" aria-describedby="priceHelp"
+                    name="curr" [(ngModel)]="catalogElemDetails.currency">
+                    <div id="priceHelp" class="form-text">Введите валюту, например RUR</div>
+                </div>
+                <div class="mb-3">
+                    <label for="noteInput" class="form-label">Note</label>
+                    <input type="text" class="form-control" id="noteInput" aria-describedby="noteHelp"
+                    name="note" [(ngModel)]="catalogElemDetails.comment">
+                    <div id="noteHelp" class="form-text">Примечание</div>
+                </div>
+        
+                <!-- m-1 для отступа кнопки-->
+                <button type="submit" class="btn btn-primary m-1">Сохранить</button>
+                <button type="button" class="btn btn-danger" (click)="deleteCatalogElem(catalogElemDetails.id)">Удалить</button>
+            </form>
+        </div>
+    </div>
+
+</div>

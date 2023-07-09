@@ -1,0 +1,45 @@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid" style="background-color: #e48dec;">
+    <a class="navbar-brand" href="#">Конфигуратор Proj</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav"  *ngIf="!isLoginPage()">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="catalog">Каталог</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="catalog/add">Добавить элемент в каталог</a>
+        </li>
+      </ul>
+    </div>
+    <!--Кнопка выхода, отдельный unordered list-->
+    <!--isLoginPage() нужен для определения страницы логина и скрытия кнопок в навбаре-->
+    <ul class="nav navbar-nav navbar-right" *ngIf="!isLoginPage()"> <!---->
+      <li>
+        <button class="btn btn-danger float-end" type="submit" id = "exitButton" (click)="UnloginUser()">Выход</button>  
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!--<style>
+  /* Modify the background color */
+   
+  .navbar-expand-lg {
+      background-color: lightgreen;
+  }
+  /* Modify brand and text color */
+   
+  .navbar-expand-lg .navbar-brand,
+  .navbar-expand-lg .navbar-text {
+      color: green;
+  }
+  .navbar-expand-lg .navbar-item {
+      color: green;
+  }
+</style>-->
+
+<router-outlet></router-outlet>

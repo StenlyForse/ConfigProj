@@ -1,0 +1,14 @@
+td {
+    /*border: 0px solid #000;*/
+    
+}
+
+tr td:last-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed; /* Фиксированная ширина ячеек */
+  }
