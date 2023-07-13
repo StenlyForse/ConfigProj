@@ -23,7 +23,8 @@ constructor(private authService: AuthService, private router: Router) {
     exitButton.addEventListener("click", (e:Event) => this.UnloginUser());*/
  }
   ngOnInit(): void {
-    
+    if (localStorage.getItem("token"))
+    this.router.navigate(['catalog'])
   }
 
   authUser() {
