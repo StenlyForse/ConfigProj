@@ -13,6 +13,7 @@ import { AuthenticatedComponent } from './components/authenticated/authenticated
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthGuard } from './auth.guard';
 import { ConfiguratorComponent } from './components/configurator/configurator.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ConfiguratorComponent } from './components/configurator/configurator.co
     AddCatalogElemComponent,
     EditCatalogElemComponent,
     AuthenticatedComponent,
-    ConfiguratorComponent
+    ConfiguratorComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
