@@ -5,6 +5,7 @@ import { AddCatalogElemComponent } from './components/catalog/add-catalog-elem/a
 import { EditCatalogElemComponent } from './components/catalog/edit-catalog-elem/edit-catalog-elem.component';
 import { AuthenticatedComponent } from './components/authenticated/authenticated.component';
 import { AuthGuard } from 'src/app/auth.guard';
+import { ConfiguratorComponent } from './components/configurator/configurator.component';
 
 const routes: Routes = [
   /*{
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'catalog/add', component: AddCatalogElemComponent, canActivate: [AuthGuard]},
   // Страница конкретного элемента
   {path:'catalog/edit/:id', component: EditCatalogElemComponent, canActivate: [AuthGuard]},
+  {path:'configurator', component: ConfiguratorComponent, canActivate: [AuthGuard]},
   // путь по дефолту
   {path:'', redirectTo: 'auth', pathMatch: 'full'},
   

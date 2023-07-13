@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthenticatedComponent } from './components/authenticated/authenticated.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthGuard } from './auth.guard';
+import { ConfiguratorComponent } from './components/configurator/configurator.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthGuard } from './auth.guard';
     CatalogListComponent,
     AddCatalogElemComponent,
     EditCatalogElemComponent,
-    AuthenticatedComponent
+    AuthenticatedComponent,
+    ConfiguratorComponent
   ],
   imports: [
     BrowserModule,
