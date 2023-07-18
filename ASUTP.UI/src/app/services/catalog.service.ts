@@ -34,4 +34,9 @@ export class CatalogService {
   deleteCatalogElement(id: /*string*/number): Observable<CatalogElem> { //смена id на number
     return this.http.delete<CatalogElem>(this.baseApiUrl + '/api/catalog/' + id);
   }
+
+  // Получение модулей К3
+  getCatalogK3(): Observable<CatalogElem[]>{
+    return this.http.get<CatalogElem[]>(this.baseApiUrl + '/api/configurator', )
+  }
 }
