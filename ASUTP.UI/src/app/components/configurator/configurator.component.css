@@ -17,7 +17,7 @@
 .io-table__item {
     display: flex;
     gap: 8px;
-    height: 32px;
+    height: fit-content;
     margin-bottom: 6px;
 }
 
@@ -33,7 +33,8 @@
 
 .io-table__item-text{
     background-color: #F7F7F8;
-    min-width: 400px;    
+    min-width: 400px;
+    height: fit;
     display: flex;
     align-items: center;
     padding: 0 15px;

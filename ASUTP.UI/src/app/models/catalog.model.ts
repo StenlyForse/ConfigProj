@@ -9,5 +9,6 @@ export interface CatalogElem {
     //curr: string,
     currency: string,
     //note: string
-    comment: string
+    comment: string,
+    desc?: string
 }
