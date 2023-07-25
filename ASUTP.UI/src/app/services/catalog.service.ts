@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { CatalogElem } from '../models/catalog.model';
 import { Observable } from 'rxjs';
@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class CatalogService {
 
-  baseApiUrl: string = environment.baseApiUrl;
+  baseApiUrl = environment.baseApiUrl;
+
   constructor(private http: HttpClient) { }
 
 

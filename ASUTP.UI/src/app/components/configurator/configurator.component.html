@@ -8,15 +8,18 @@
                     <div class="io-table__item-text">АРМ инженера АСУТП</div>
                     <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name">
                 </div>
-                <img src="../../../assets/img/station.svg" alt="es-station">
+                <!-- <img src="../../../assets/img/station.svg" alt="es-station"> -->
             </div>
             <div class="station">
                 <div class="io-table__item" >
                     <div class="io-table__item-text">АРМ оператора АСУТП</div>
-                    <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name">                
+                    <input class="io-table__item-qty" type="number" placeholder = "1" aria-label="First name">                
                 </div>
-                <img src="../../../assets/img/station.svg" alt="os-station">
+                <!-- <img src="../../../assets/img/station.svg" alt="os-station"> -->
             </div>
+            <div>
+                <img  class="station-img"  src="../../../assets/img/station.svg" alt="os-station">
+            </div>            
         </div>
     
         
@@ -29,7 +32,7 @@
                 <img src="../../../assets/img/server-station.svg" alt="server-workstation">
             </div>
             <div class="io-table__item" >
-                <div class="io-table__item-text">АРМ оператора АСУТП</div>
+                <div class="io-table__item-text">Сервер АСУТП</div>
                 <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name">                
             </div>
         </div>
@@ -43,6 +46,9 @@
             <div class="io-table__item" *ngFor="let catalogElem of catalog">
                 <div class="io-table__item-text">{{catalogElem.name}} </div>
                 <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name">
+                <div class="io-table__item-desc">
+                    поле description из базы {{catalogElem.comment}}
+            </div>
             </div>
         </div>
     </div>

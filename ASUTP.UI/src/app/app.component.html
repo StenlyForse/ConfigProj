@@ -6,7 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav"  *ngIf="!isLoginPage()">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="catalog">Каталог</a>
         </li>
@@ -17,14 +17,14 @@
           <a class="nav-link active" aria-current="page" routerLink="configurator">Конфигуратор</a>
         </li>
       </ul>
+      <!--Кнопка выхода, отдельный unordered list-->
+      <!--isLoginPage() нужен для определения страницы логина и скрытия кнопок в навбаре-->
+      <ul class="nav navbar-nav navbar-right" *ngIf="!isLoginPage()"> <!---->
+        <li>
+          <button class="btn btn-danger float-end float-sm-start col-sm-2 col-lg-auto mt-sm-2 mb-sm-2" type="submit" id = "exitButton" (click)="UnloginUser()">Выход</button>  
+        </li>
+      </ul>
     </div>
-    <!--Кнопка выхода, отдельный unordered list-->
-    <!--isLoginPage() нужен для определения страницы логина и скрытия кнопок в навбаре-->
-    <ul class="nav navbar-nav navbar-right" *ngIf="!isLoginPage()"> <!---->
-      <li>
-        <button class="btn btn-danger float-end" type="submit" id = "exitButton" (click)="UnloginUser()">Выход</button>  
-      </li>
-    </ul>
   </div>
 </nav>
 

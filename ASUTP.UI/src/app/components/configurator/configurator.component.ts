@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CatalogElem } from 'src/app/models/catalog.model';
-import { CatalogService } from 'src/app/services/catalog.service';
+// import { CatalogService } from 'src/app/services/catalog.service';
 import { ConfiguratorService } from 'src/app/services/configurator.service';
 
 @Component({

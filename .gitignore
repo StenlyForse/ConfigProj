@@ -1,0 +1,9 @@
+.vscode/launch.json
+.vscode/tasks.json
+ASUTP.API/package-lock.json
+ASUTP.API/ASUTP.API/appsettings.json
+ASUTP.API/ASUTP.API/appsettings.json
+ASUTP.API/ASUTP.API/appsettings.json
+ASUTP.API/ASUTP.API/Properties/launchSettings.json
+ASUTP.UI/src/environments/environment.ts
+ASUTP.UI/src/environments/environment.development.ts
