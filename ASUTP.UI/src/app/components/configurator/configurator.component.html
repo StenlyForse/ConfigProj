@@ -38,13 +38,18 @@
         <div class="network">
             Системная шина
         </div>
-    
-        <div class="io-table" >
-            <div class="io-table__item" *ngFor="let catalogElem of catalog">
-                <div class="io-table__item-text">{{catalogElem.name}} </div>
-                <div class="io-table__item-text">{{catalogElem.desc}} </div>
-                <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name">
+    <!--План: инпутом собираю все цифры, отправляю в бек с id и названием, там вычленяю делитель, делю и записываю в таблицу Configs с catalogID и в count кол-во штук-->
+    <!--потом на отдельной странице выбираю BoundleID и по нему вывожу элементы с описанием из каталога и их кол-во-->
+        <form #form="ngForm">
+            <div class="io-table">
+                <div class="io-table__item" *ngFor="let catalogElem of catalog let i = index;">
+                    <div class="io-table__item-text">{{catalogElem.name}} </div>
+                    <div class="io-table__item-text">{{catalogElem.desc}} </div>
+                    <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name" name="qty_{{i}}" [(ngModel)]="items[i].quantity"
+                    [ngModelOptions]="{standalone: true}" (blur)="onInputBlur(i)">
+                </div>
             </div>
-        </div>
+            <button type="submit" class="btn btn-primary" (click)="addConfig()">Создать</button>
+        </form>
     </div>
 </div>
