@@ -12,5 +12,7 @@ namespace ASUTP.API.Data
         public DbSet<CatalogElem> Catalog { get; set; }
 
         public DbSet<UsersElem> Users { get; set; }
+
+        public DbSet<ConfigsElem> Configs { get; set; }
     }
 }

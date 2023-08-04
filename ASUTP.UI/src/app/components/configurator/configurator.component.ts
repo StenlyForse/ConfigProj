@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CatalogElem } from 'src/app/models/catalog.model';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { ConfiguratorService } from 'src/app/services/configurator.service';
+import { ConfigElem } from 'src/app/models/config.model';
 
 @Component({
   selector: 'app-configurator',
@@ -10,13 +11,13 @@ import { ConfiguratorService } from 'src/app/services/configurator.service';
 })
 export class ConfiguratorComponent {
   catalog: CatalogElem[] = [];
-  items: any[] = [];
+  configArr: ConfigElem[] = [];
 
-  constructor(private catalogService: ConfiguratorService) { }
+  constructor(private configuratorService: ConfiguratorService) { }
 
   ngOnInit(): void {
 
-    this.catalogService.getCatalogK3()
+    this.configuratorService.getCatalogK3()
     .subscribe({
       next: (catalog) => {
         this.catalog = catalog;
@@ -31,28 +32,41 @@ export class ConfiguratorComponent {
   // Инициализация массива
   initializeItems() {
     for (let i = 0; i < this.catalog.length; i++) {
-      this.items[i] = { id: this.catalog[i].id, name: this.catalog[i].name, quantity: 0 };
+      this.configArr[i] = {id: 0, catalogId: this.catalog[i].id, name: this.catalog[i].name, count: 0, boundleid: 0 };
     }
   }
 
 
   onInputBlur(index: number) {
-    if (this.items[index].quantity === undefined) {
-      // Если значение в quantity пусто, устанавливаем значение из placeholder (например, 0)
-      this.items[index].quantity = 0;
+    if (this.configArr[index].count === undefined) {
+      // Если значение в count пусто, устанавливаем значение из placeholder (например, 0)
+      this.configArr[index].count = 0;
     }
   }
 
   addConfig(): void {
-    // Проверяем все значения quantity и устанавливаем значения по умолчанию, если не заполнены
+    // Проверяем все значения count и устанавливаем значения по умолчанию, если не заполнены
     for (let i = 0; i < this.catalog.length; i++) {
-      if (this.items[i].quantity === undefined) {
-        // Если значение в quantity пусто, устанавливаем значение из placeholder (например, 0)
-        this.items[i].quantity = 0;
+      if (this.configArr[i].count === undefined) {
+        // Если значение в count пусто, устанавливаем значение из placeholder (например, 0)
+        this.configArr[i].count = 0;
       }
     }
+
+    let json = JSON.stringify(this.configArr)
+
+    this.configuratorService.addConfig(this.configArr)
+    .subscribe({
+      next: (configElem) => {
+        alert('Succesfully added');
+      },
+      error: (response) => {
+        console.log(response)
+      }
+      
+    })
     
-    console.log(this.items);
+    console.log(this.configArr);
   }
 
 }

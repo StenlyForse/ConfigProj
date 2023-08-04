@@ -1,5 +1,6 @@
 ﻿using ASUTP.API.Data;
 using Microsoft.AspNetCore.Mvc;
+using ASUTP.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASUTP.API.Controllers
@@ -30,6 +31,24 @@ namespace ASUTP.API.Controllers
             x.Name.StartsWith("K3.AI")).ToListAsync();
 
             return Ok(catalogElemList);
+        }
+
+        /// <summary>
+        /// Добавляет конфиги со старницы конфигурации в БД
+        /// </summary>
+        /// <param name="requestData"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AddConfig([FromBody] ConfigsElem[] requestData)
+        {
+            var maxBoundleId = await _aSUTPDbContext.Configs.MaxAsync(x => x.BoundleID);
+            foreach (var elem in requestData)
+            {
+                elem.BoundleID = maxBoundleId + 1;
+            }
+            await _aSUTPDbContext.Configs.AddRangeAsync(requestData);
+            await _aSUTPDbContext.SaveChangesAsync();
+            return Ok(requestData);
         }
     }
 }
