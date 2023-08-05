@@ -12,8 +12,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { AuthenticatedComponent } from './components/authenticated/authenticated.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthGuard } from './auth.guard';
-import { ConfiguratorComponent } from './components/configurator/configurator.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ConfiguratorComponent } from './components/configurator-folder/configurator/configurator.component';
+import { SidebarComponent } from './components/configurator-folder/sidebar/sidebar.component';
+import { ConfigsListComponent } from './components/configurator-folder/configs-list/configs-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     EditCatalogElemComponent,
     AuthenticatedComponent,
     ConfiguratorComponent,
-    SidebarComponent
+    SidebarComponent,
+    ConfigsListComponent,
   ],
   imports: [
     BrowserModule,

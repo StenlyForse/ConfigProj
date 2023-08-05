@@ -30,6 +30,6 @@ export class ConfiguratorService {
   }
   
   getBoundlesList(): Observable<any[]>{
-    return this.http.get<any[]>(this.baseApiUrl + '/api/configurator', )
+    return this.http.get<any[]>(this.baseApiUrl + '/api/configurator/configList', )
   }
 }

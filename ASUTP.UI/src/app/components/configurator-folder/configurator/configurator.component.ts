@@ -12,8 +12,6 @@ import { ConfigElem } from 'src/app/models/config.model';
 export class ConfiguratorComponent {
   catalog: CatalogElem[] = [];
   configArr: ConfigElem[] = [];
-  configElem: any[] = [];
-  items: string[] = [];
 
   constructor(private configuratorService: ConfiguratorService) { }
 
@@ -29,15 +27,6 @@ export class ConfiguratorComponent {
         console.log(response)
       }
     })
-
-    this.configuratorService.getBoundlesList().subscribe(
-      (data) => {
-        this.items = data; // Заполнение массива данными из API
-      },
-      (error) => {
-        console.log('Ошибка при получении списка:', error);
-      }
-    );
   }
 
   // Инициализация массива
@@ -76,27 +65,5 @@ export class ConfiguratorComponent {
     })
     
     console.log(this.configArr);
-  }
-
-  // Событие по изменению значения в выпадающем списке
-
-  selectedItem: string = ''; // Выбранный элемент из списка
-  onChangeItem(event: any): void {
-    // Получение выбранного элемента из списка
-    this.selectedItem = event.target.value;
-
-    // Получение данных для выбранного элемента и заполнение массива configElem
-    const selectedData = this.getSelectedData(this.selectedItem);
-    this.configElem = selectedData;
-  }
-  getSelectedData(selectedItem: string): any[] {
-    // Вам нужно здесь реализовать получение данных из API
-    // для выбранного элемента (selectedItem),
-    // либо преобразование данных из this.items на основе выбранного элемента.
-    // Верните массив с данными, связанными с выбранным элементом.
-    // Примерно так:
-    // const selectedData = this.apiService.getDataForSelectedItem(selectedItem);
-    // return selectedData;
-    return [10]
   }
 }

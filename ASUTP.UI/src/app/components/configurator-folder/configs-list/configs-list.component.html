@@ -1,0 +1,16 @@
+<app-sidebar></app-sidebar>
+<div class="config-page">
+    <div>
+        <label for="selectItems">Выберите элемент:</label>
+        <select id="selectItems" [(ngModel)]="selectedItem" (change)="onChangeItem($event)">
+          <option *ngFor="let item of items" [value]="item">{{item}}</option>
+        </select>
+    </div>
+
+    <div class="io-table">
+      <div class="io-table__item" *ngFor="let configElem of config">
+          <div class="io-table__item-text">{{configElem.boundleid}} </div>
+          <div class="io-table__item-text">{{configElem.count}} </div>
+      </div>
+  </div>
+</div>

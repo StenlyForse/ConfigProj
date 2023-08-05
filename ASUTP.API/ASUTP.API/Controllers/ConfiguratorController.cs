@@ -52,7 +52,7 @@ namespace ASUTP.API.Controllers
         }
 
         // Добавить страницу под это дело
-        [HttpGet("list")]
+        [HttpGet("configList")]
         public async Task<IActionResult> GetBoundlesList()
         {
             var boundlesDistinct = await _aSUTPDbContext.Configs.Select(x => x.BoundleID).Distinct().ToListAsync();
