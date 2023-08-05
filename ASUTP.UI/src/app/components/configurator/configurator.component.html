@@ -52,4 +52,11 @@
             <button type="submit" class="btn btn-primary" (click)="addConfig()">Создать</button>
         </form>
     </div>
+    <div>
+        <label for="selectItems">Выберите элемент:</label>
+        <select id="selectItems" [(ngModel)]="selectedItem" (change)="onChangeItem($event)">
+          <option *ngFor="let item of items" [value]="item">{{item}}</option>
+        </select>
+      </div>
+      
 </div>

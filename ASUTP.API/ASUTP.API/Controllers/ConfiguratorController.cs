@@ -50,5 +50,14 @@ namespace ASUTP.API.Controllers
             await _aSUTPDbContext.SaveChangesAsync();
             return Ok(requestData);
         }
+
+        // Добавить страницу под это дело
+        [HttpGet("list")]
+        public async Task<IActionResult> GetBoundlesList()
+        {
+            var boundlesDistinct = await _aSUTPDbContext.Configs.Select(x => x.BoundleID).Distinct().ToListAsync();
+
+            return Ok(boundlesDistinct);
+        }
     }
 }

@@ -28,4 +28,8 @@ export class ConfiguratorService {
     };
     return this.http.post<ConfigElem[]>(this.baseApiUrl + '/api/configurator', addConfigRequest, /*{headers : new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: "text"}*/)
   }
+  
+  getBoundlesList(): Observable<any[]>{
+    return this.http.get<any[]>(this.baseApiUrl + '/api/configurator', )
+  }
 }
