@@ -3,6 +3,6 @@ export interface ConfigElem {
     id: number,
     catalogId: number,
     count: number,
-    boundleid: number,
+    boundleID: number,
     name?: string
 }

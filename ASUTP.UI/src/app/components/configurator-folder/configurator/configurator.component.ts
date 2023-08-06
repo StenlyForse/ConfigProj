@@ -32,7 +32,7 @@ export class ConfiguratorComponent {
   // Инициализация массива
   initializeItems() {
     for (let i = 0; i < this.catalog.length; i++) {
-      this.configArr[i] = {id: 0, catalogId: this.catalog[i].id, name: this.catalog[i].name, count: 0, boundleid: 0 };
+      this.configArr[i] = {id: 0, catalogId: this.catalog[i].id, name: this.catalog[i].name, count: 0, boundleID: 0 };
     }
   }
 
@@ -56,7 +56,7 @@ export class ConfiguratorComponent {
     this.configuratorService.addConfig(this.configArr)
     .subscribe({
       next: (configElem) => {
-        alert('Succesfully added');
+        alert('Новая конфигурация добавлена, её уникальный номер: ' + configElem);
       },
       error: (response) => {
         console.log(response)

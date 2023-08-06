@@ -1,15 +1,15 @@
-.io-table{
+.io-table, table{
     margin-top: 45px;
 }
 
-.io-table__item {
+.io-table__item, th {
     display: flex;
     gap: 8px;
     height: fit-content;
     margin-bottom: 6px;
 }
 
-.io-table__item-text{
+.io-table__item-text, tr, th{
     background-color: #F7F7F8;
     min-width: 400px;
     height: fit;
@@ -23,6 +23,7 @@
     background-color: #E9E1F9;
     border: none;
 }
+
 
 @media (min-width: 1200px) {
     .config-page{

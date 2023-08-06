@@ -5,6 +5,7 @@ import { CatalogElem } from '../models/catalog.model';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { ConfigElem } from '../models/config.model';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +27,15 @@ export class ConfiguratorService {
     headers: headers,
     responseType: 'text'     // <-- set response type as `text`
     };
-    return this.http.post<ConfigElem[]>(this.baseApiUrl + '/api/configurator', addConfigRequest, /*{headers : new HttpHeaders({ 'Content-Type': 'application/json' }), responseType: "text"}*/)
+    return this.http.post<ConfigElem[]>(this.baseApiUrl + '/api/configurator', addConfigRequest)
   }
   
   getBoundlesList(): Observable<any[]>{
-    return this.http.get<any[]>(this.baseApiUrl + '/api/configurator/configList', )
+    return this.http.get<any[]>(this.baseApiUrl + '/api/configurator/configList')
+  }
+
+  // Отправка вместе с параметром
+  getBoundlesDataList(boudnleId: string): Observable<ConfigElem[]>{
+    return this.http.get<ConfigElem[]>(this.baseApiUrl + '/api/configurator/configList?boundleid=' + boudnleId )
   }
 }

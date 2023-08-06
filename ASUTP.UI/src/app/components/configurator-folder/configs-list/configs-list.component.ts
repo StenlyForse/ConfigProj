@@ -12,7 +12,7 @@ export class ConfigsListComponent {
   constructor(private configuratorService: ConfiguratorService) { }
   configElem: any[] = [];
   items: string[] = [];
-  config: ConfigElem[] = [];
+  config: any[] = [];
 
   ngOnInit(): void {
 
@@ -35,24 +35,17 @@ export class ConfigsListComponent {
    const selectedData = this.getSelectedData(this.selectedItem);
     this.configElem = selectedData;
   }
+  // Получение конфигурации по выбранному айти из выпадающего списка
   getSelectedData(selectedItem: string): any[] {
-    // Вам нужно здесь реализовать получение данных из API
-    // для выбранного элемента (selectedItem),
-    // либо преобразование данных из this.items на основе выбранного элемента.
-    // Верните массив с данными, связанными с выбранным элементом.
-    // Примерно так:
-    // const selectedData = this.apiService.getDataForSelectedItem(selectedItem);
-    // return selectedData;
-    if (selectedItem == "2") {
-      this.config = [
-        {
-          id: 1,
-          catalogId: 1,
-          boundleid: 3,
-          count: 5
-        }
-      ]
-    }
-    return [10]
+    this.configuratorService.getBoundlesDataList(selectedItem).subscribe(
+      (data) => {
+        this.config = data; // Заполнение массива данными из API
+      },
+      (error) => {
+        console.log('Ошибка при получении списка:', error);
+      }
+    );
+   
+    return this.config
   }
 }

@@ -48,16 +48,60 @@ namespace ASUTP.API.Controllers
             }
             await _aSUTPDbContext.Configs.AddRangeAsync(requestData);
             await _aSUTPDbContext.SaveChangesAsync();
-            return Ok(requestData);
+            return Ok(maxBoundleId + 1);
         }
 
-        // Добавить страницу под это дело
-        [HttpGet("configList")]
-        public async Task<IActionResult> GetBoundlesList()
+        // Возвращает либо уникальные id сборок, либо саму сборку по переданному id
+       [HttpGet("configList")]
+        [ActionName("GetConfigByBoundleId")]
+        public async Task<IActionResult> GetConfigByBoundleId([FromQuery(Name = "BoundleID")] int BoundleID)
         {
-            var boundlesDistinct = await _aSUTPDbContext.Configs.Select(x => x.BoundleID).Distinct().ToListAsync();
+            if (BoundleID == 0)
+            {
+                var boundlesDistinct = await _aSUTPDbContext.Configs.Select(x => x.BoundleID).Distinct().ToListAsync();
 
-            return Ok(boundlesDistinct);
+                return Ok(boundlesDistinct);
+            }
+            else
+            {
+                var boundlesList = await _aSUTPDbContext.Configs.Where(x => x.BoundleID == BoundleID).ToListAsync();
+
+                var boundlesJoinCatalogList = _aSUTPDbContext.Configs.Join(_aSUTPDbContext.Catalog,
+                                                                           con => con.CatalogId,
+                                                                           cat => cat.Id,
+                                                                           (con, cat) => new
+                                                                           {
+                                                                               Name = cat.Name,
+                                                                               BoundleID = con.BoundleID,
+                                                                               Count = con.Count,
+                                                                               ModuleCount = CalcModuleCount(cat.Name, con.Count)
+                                                                           }).Where(x => x.BoundleID == BoundleID).ToList();
+
+
+                return Ok(boundlesJoinCatalogList);
+            }
+        }
+
+        /// <summary>
+        /// Подсчет количества модулей на основе вычленения количества сигналов из названия модуля
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        private static int CalcModuleCount(string name, int count)
+        {
+            try
+            {
+                var divider = Convert.ToInt32(name.Split('.')[3]);
+                if (divider == 0 || count == 0)
+                    return 0;
+
+                return Convert.ToInt32(Math.Ceiling(count / (double)divider));
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
     }
 }
