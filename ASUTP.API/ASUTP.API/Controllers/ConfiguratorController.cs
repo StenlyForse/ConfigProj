@@ -48,6 +48,16 @@ namespace ASUTP.API.Controllers
             }
             await _aSUTPDbContext.Configs.AddRangeAsync(requestData);
             await _aSUTPDbContext.SaveChangesAsync();
+
+            // Добавляем строку в KPs_Master, пока хардкод
+            KpMasterController kpMasterController = new KpMasterController(_aSUTPDbContext);
+            OkObjectResult okState = (OkObjectResult)await kpMasterController.AddRecordToKPMaster("Standart description", 1);
+            int masterRecId = Convert.ToInt32(okState.Value);
+
+            // Добавляем строку в KPs_Detail, пока хардкод
+            KpDetailController kpDetailController = new KpDetailController(_aSUTPDbContext);
+            await kpDetailController.AddRecordToKPDetail(7, maxBoundleId + 1, masterRecId, 1);
+
             return Ok(maxBoundleId + 1);
         }
 
