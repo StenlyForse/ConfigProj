@@ -65,5 +65,7 @@ export class ConfiguratorComponent {
     })
     
     console.log(this.configArr);
+
+    // test commit by Ruslan
   }
 }
