@@ -14,5 +14,9 @@ namespace ASUTP.API.Data
         public DbSet<UsersElem> Users { get; set; }
 
         public DbSet<ConfigsElem> Configs { get; set; }
+
+        public DbSet<KpMasterElem> KPs_Master { get; set; }
+
+        public DbSet<KpDetailElem> KPs_Detail { get; set; }
     }
 }

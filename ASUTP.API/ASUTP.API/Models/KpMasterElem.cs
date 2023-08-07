@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public DateTime DateTime { get; set; }
-        public string? Description { get; set; }
+        public string? Desc { get; set; }
         public int Revision { get; set; }
 
     }
