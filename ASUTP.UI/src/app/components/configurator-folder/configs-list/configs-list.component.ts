@@ -42,7 +42,7 @@ export class ConfigsListComponent {
         this.config = data; // Заполнение массива данными из API
       },
       (error) => {
-        console.log('Ошибка при получении списка:', error);
+        console.log('Ошибка при получении списка конфигураций по Id:', error);
       }
     );
    
