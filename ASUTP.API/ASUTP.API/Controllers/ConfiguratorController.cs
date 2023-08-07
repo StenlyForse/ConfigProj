@@ -42,9 +42,10 @@ namespace ASUTP.API.Controllers
         public async Task<IActionResult> AddConfig([FromBody] ConfigsElem[] requestData)
         {
             var maxBoundleId = await _aSUTPDbContext.Configs.MaxAsync(x => x.BoundleID);
+            var newBoundId = maxBoundleId + 1;
             foreach (var elem in requestData)
             {
-                elem.BoundleID = maxBoundleId + 1;
+                elem.BoundleID = newBoundId;
             }
             await _aSUTPDbContext.Configs.AddRangeAsync(requestData);
             await _aSUTPDbContext.SaveChangesAsync();
@@ -56,9 +57,12 @@ namespace ASUTP.API.Controllers
 
             // Добавляем строку в KPs_Detail, пока хардкод
             KpDetailController kpDetailController = new KpDetailController(_aSUTPDbContext);
-            await kpDetailController.AddRecordToKPDetail(7, maxBoundleId + 1, masterRecId, 1);
+            await kpDetailController.AddRecordToKPDetail(7, newBoundId, masterRecId, 1);
 
-            return Ok(maxBoundleId + 1);
+            BoundlesController boundlesController = new BoundlesController(_aSUTPDbContext);
+            await boundlesController.AddRecordToBoundles("Custom boundle #" + newBoundId);
+
+            return Ok(newBoundId);
         }
 
         // Возвращает либо уникальные id сборок, либо саму сборку по переданному id
