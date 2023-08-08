@@ -3,6 +3,7 @@ import { CatalogElem } from 'src/app/models/catalog.model';
 import { CatalogService } from 'src/app/services/catalog.service';
 import { ConfiguratorService } from 'src/app/services/configurator.service';
 import { ConfigElem } from 'src/app/models/config.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-configurator',
@@ -13,7 +14,7 @@ export class ConfiguratorComponent {
   catalog: CatalogElem[] = [];
   configArr: ConfigElem[] = [];
 
-  constructor(private configuratorService: ConfiguratorService) { }
+  constructor(private configuratorService: ConfiguratorService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -57,6 +58,7 @@ export class ConfiguratorComponent {
     .subscribe({
       next: (configElem) => {
         alert('Новая конфигурация добавлена, её уникальный номер: ' + configElem);
+        this.router.navigate(['configurator/configList/edit/' + configElem])
       },
       error: (response) => {
         console.log(response)
