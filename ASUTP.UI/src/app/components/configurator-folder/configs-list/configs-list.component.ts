@@ -37,7 +37,7 @@ export class ConfigsListComponent {
   }
   // Получение конфигурации по выбранному айти из выпадающего списка
   getSelectedData(selectedItem: string): any[] {
-    this.configuratorService.getBoundlesDataList(selectedItem).subscribe(
+    this.configuratorService.getBoundlesDataList(parseInt(selectedItem, 10)).subscribe(
       (data) => {
         this.config = data; // Заполнение массива данными из API
       },

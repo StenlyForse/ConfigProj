@@ -66,9 +66,10 @@ namespace ASUTP.API.Controllers
         }
 
         // Возвращает либо уникальные id сборок, либо саму сборку по переданному id
-       [HttpGet("configList")]
-        [ActionName("GetConfigByBoundleId")]
-        public async Task<IActionResult> GetConfigByBoundleId([FromQuery(Name = "BoundleID")] int BoundleID)
+       [HttpGet]
+       [Route("configList/{BoundleID:int}")]
+        //[ActionName("GetConfigByBoundleId")]
+        public async Task<IActionResult> GetConfigByBoundleId(/*[FromQuery(Name = "BoundleID")]*/[FromRoute] int BoundleID)
         {
             if (BoundleID == 0)
             {

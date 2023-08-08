@@ -15,6 +15,7 @@ import { AuthGuard } from './auth.guard';
 import { ConfiguratorComponent } from './components/configurator-folder/configurator/configurator.component';
 import { SidebarComponent } from './components/configurator-folder/sidebar/sidebar.component';
 import { ConfigsListComponent } from './components/configurator-folder/configs-list/configs-list.component';
+import { EditConfigElemComponent } from './components/configurator-folder/edit-config-elem/edit-config-elem.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ConfigsListComponent } from './components/configurator-folder/configs-l
     ConfiguratorComponent,
     SidebarComponent,
     ConfigsListComponent,
+    EditConfigElemComponent,
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,12 @@ export class ConfiguratorService {
   }
 
   // Отправка вместе с параметром
-  getBoundlesDataList(boudnleId: string): Observable<ConfigElem[]>{
-    return this.http.get<ConfigElem[]>(this.baseApiUrl + '/api/configurator/configList?boundleid=' + boudnleId )
+  getBoundlesDataList(boudnleId: number): Observable<ConfigElem[]>{
+    //return this.http.get<ConfigElem[]>(this.baseApiUrl + '/api/configurator/configList?boundleid=' + boudnleId )
+    return this.http.get<ConfigElem[]>(this.baseApiUrl + '/api/configurator/configList/' + boudnleId )
   }
+
+    updateBoundlesDataList(boudnleID: number, updateBoundlesDataListRequest: any[]): Observable<ConfigElem[]>{
+      return this.http.put<ConfigElem[]>(this.baseApiUrl + '/api/configurator/configList/' + boudnleID, updateBoundlesDataListRequest )
+    }
 }
