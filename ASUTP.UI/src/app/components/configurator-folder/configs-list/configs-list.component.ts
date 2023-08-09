@@ -11,7 +11,7 @@ export class ConfigsListComponent {
 
   constructor(private configuratorService: ConfiguratorService) { }
   configElem: any[] = [];
-  items: string[] = [];
+  items: any[] = [];
   config: any[] = [];
 
   ngOnInit(): void {

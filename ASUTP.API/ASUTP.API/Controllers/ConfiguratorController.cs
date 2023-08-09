@@ -72,13 +72,23 @@ namespace ASUTP.API.Controllers
         {
                 var boundlesDistinct = await _aSUTPDbContext.Configs.Select(x => x.BoundleID).Distinct().ToListAsync();
 
-                return Ok(boundlesDistinct);
+                var boundlesJoinCatalogList = _aSUTPDbContext.Boundles.Join(_aSUTPDbContext.KPs_Master,
+                                                           b => b.Id,
+                                                           k => k.Id,
+                                                           (b, k) => new
+                                                           {
+                                                               Desc = b.Desc,
+                                                               DateTimeKP = k.DateTime.ToString("dd.MM.yyyy hh:mm"),
+                                                               Id = k.Id,
+                                                               Revision = k.Revision
+                                                           }).ToList();
+
+                return Ok(boundlesJoinCatalogList);
         }
 
         // Возвращает либо уникальные id сборок, либо саму сборку по переданному id
         [HttpGet]
-       [Route("configList/{BoundleID:int}")]
-        //[ActionName("GetConfigByBoundleId")]
+        [Route("configList/{BoundleID:int}")]
         public async Task<IActionResult> GetConfigByBoundleId(/*[FromQuery(Name = "BoundleID")]*/[FromRoute] int BoundleID)
         {
             if (BoundleID == 0)
