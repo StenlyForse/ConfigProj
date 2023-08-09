@@ -17,6 +17,8 @@ import { SidebarComponent } from './components/configurator-folder/sidebar/sideb
 import { ConfigsListComponent } from './components/configurator-folder/configs-list/configs-list.component';
 import { EditConfigElemComponent } from './components/configurator-folder/edit-config-elem/edit-config-elem.component';
 
+import { DataTablesModule } from "angular-datatables";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,8 @@ import { EditConfigElemComponent } from './components/configurator-folder/edit-c
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    DataTablesModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
