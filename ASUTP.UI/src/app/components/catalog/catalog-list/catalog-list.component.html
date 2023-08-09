@@ -1,35 +1,30 @@
 <div class="container my-5">
-<h1 class="mb-3">Каталог</h1>
-
-<table class="table" *ngIf="catalog && catalog.length > 0">
-<thead>
-<tr>
-    <th>Id</th>
-    <!--<th>Element</th>-->
-    <th>Reference</th>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Currency</th>
-    <th>Comment</th>
-    <th> </th>
-</tr>
-</thead>
-<tbody>
-    <tr *ngFor="let elem of catalog">
-        <td>{{elem.id }}</td>
-        <!--<td>{{elem.element }}</td>-->
-        <td>{{elem.reference }}</td>
-        <td>{{elem.name }}</td>
-        <td>{{elem.price_wo_tax }}</td>
-        <td>{{elem.currency }}</td>
-        <td>{{elem.comment }}</td>
-        <!-- ссылка на конкретный элемент-->
-        <td><a [routerLink]="['/catalog', 'edit', elem.id]">Изменить</a></td>
-        
-    </tr>
-</tbody>
-</table>
-<!--<mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>-->
-<p *ngIf="!catalog || catalog.length == 0">Каталог пуст</p>
-
+    <h1 class="mb-3">Каталог</h1>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped w-auto mt-4" *ngIf="catalog && catalog.length > 0">
+            <thead class="table-primary">
+                <tr>
+                    <th>Id</th>
+                    <th>Reference</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Currency</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let elem of catalog">
+                    <td>{{ elem.id }}</td>
+                    <td class="text-nowrap">{{ elem.reference }}</td>
+                    <td>{{ elem.desc }}</td>
+                    <td>{{ elem.price_wo_tax }}</td>
+                    <td>{{ elem.currency }}</td>
+                    <!-- ссылка на конкретный элемент-->
+                    <td><a [routerLink]="['/catalog', 'edit', elem.id]"><i class="bi bi-pencil-square"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page"></mat-paginator>-->
+    <p *ngIf="!catalog || catalog.length == 0">Каталог пуст</p>
 </div>
