@@ -1,4 +1,10 @@
-.io-table, table{
+.configlist__title{
+    text-align: center;
+    margin: 50px auto;
+    text-transform: uppercase;
+}
+
+/* .io-table, table{
     margin-top: 45px;
 }
 
@@ -24,9 +30,10 @@
     border: none;
 }
 
+*/
 
 @media (min-width: 1200px) {
     .config-page{
         padding-left: 270px;
     }
-}
+} 
