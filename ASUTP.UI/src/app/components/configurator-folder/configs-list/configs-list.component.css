@@ -1,29 +1,3 @@
-.io-table, table{
-    margin-top: 45px;
-}
-
-.io-table__item, th {
-    display: flex;
-    gap: 8px;
-    height: fit-content;
-    margin-bottom: 6px;
-}
-
-.io-table__item-text, tr, th{
-    background-color: #F7F7F8;
-    min-width: 400px;
-    height: fit;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-}
-
-.io-table__item-qty{
-    width: 85px;
-    background-color: #E9E1F9;
-    border: none;
-}
-
 
 @media (min-width: 1200px) {
     .config-page{
