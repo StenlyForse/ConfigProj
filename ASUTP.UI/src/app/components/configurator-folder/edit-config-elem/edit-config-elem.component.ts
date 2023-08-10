@@ -11,7 +11,8 @@ export class EditConfigElemComponent {
   bundleId: number = 0;
 
   constructor(private route: ActivatedRoute, private configuratorService: ConfiguratorService, private router: Router) { }
-  configElems: any[] = [];
+  configElemsArr: any[] = [];
+  configHeader: any = {};
 
   ngOnInit(): void {
 
@@ -25,7 +26,8 @@ export class EditConfigElemComponent {
           this.configuratorService.getBoundlesDataList(parseInt(id, 10)) // тут почему-то не сменилось нормально, пришлось парсить
           .subscribe({
             next: (response) => {
-              this.configElems = response;
+              this.configElemsArr = response.сonfigsElems;
+              this.configHeader = {Title: response.title, DateTime: response.dateTime, Revision: response.revision}
             },
             error: (response) => {
               console.log(response)
@@ -37,7 +39,7 @@ export class EditConfigElemComponent {
   }
 
   updateBoundlesDataList() {
-    this.configuratorService.updateBoundlesDataList(this.bundleId, this.configElems)
+    this.configuratorService.updateBoundlesDataList(this.bundleId, this.configElemsArr)
     .subscribe({
       next: (response) => {
         // Возвращаемся назад в список

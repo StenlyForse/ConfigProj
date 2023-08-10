@@ -1,5 +1,17 @@
 
 <table class="header-table">
+	<tbody>
+		<tr>
+			<th>{{configHeader.Title}}</th>
+			<th>Дата создания: {{configHeader.DateTime}}</th>
+			<th>Ревизия: {{configHeader.Revision}}</th>
+		</tr>
+	</tbody>
+</table>
+
+<div style="width:100%;height:30px;border:1px solid #000;text-align:center; background-color: #F7F7F8;margin-top:20px;">ПЛК</div>
+
+<table class="header-table">
     <tr>
       <th>Название модуля</th>
       <th>Количество сигналов</th>
@@ -8,8 +20,11 @@
   </table>
 
 <div class="io-table">
-    <div class="io-table__item" *ngFor="let configElem of configElems">
+    <div class="io-table__item" *ngFor="let configElem of configElemsArr">
         <div class="io-table__item-text">{{configElem.name}} </div>
         <div class="io-table__item-text">{{configElem.count}} </div>
         <div class="io-table__item-text">{{configElem.moduleCount}} </div>
     </div>
+</div>
+
+<button type="submit" class="btn btn-primary">Сформироать отчет</button>
