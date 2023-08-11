@@ -86,35 +86,29 @@ namespace ASUTP.API.Controllers
                 return Ok(boundlesJoinCatalogList);
         }
 
-        // Возвращает либо уникальные id сборок, либо саму сборку по переданному id
+        // Возвращает сборку + KPMaster по переданному id
         [HttpGet]
         [Route("configList/{BoundleID:int}")]
         public async Task<IActionResult> GetConfigByBoundleId(/*[FromQuery(Name = "BoundleID")]*/[FromRoute] int BoundleID)
         {
-            if (BoundleID == 0)
-            {
-                var boundlesDistinct = await _aSUTPDbContext.Configs.Select(x => x.BoundleID).Distinct().ToListAsync();
 
-                return Ok(boundlesDistinct);
-            }
-            else
-            {
-                var boundlesList = await _aSUTPDbContext.Configs.Where(x => x.BoundleID == BoundleID).ToListAsync();
+            var KpMaster = await _aSUTPDbContext.KPs_Master.Where(x => x.Id == BoundleID).FirstOrDefaultAsync();
 
-                var boundlesJoinCatalogList = _aSUTPDbContext.Configs.Join(_aSUTPDbContext.Catalog,
-                                                                           con => con.CatalogId,
-                                                                           cat => cat.Id,
-                                                                           (con, cat) => new
-                                                                           {
-                                                                               Name = cat.Name,
-                                                                               BoundleID = con.BoundleID,
-                                                                               Count = con.Count,
-                                                                               ModuleCount = CalcModuleCount(cat.Name, con.Count)
-                                                                           }).Where(x => x.BoundleID == BoundleID).ToList();
+            var boundlesJoinCatalogList =  await _aSUTPDbContext.Configs.Join(_aSUTPDbContext.Catalog,
+                                                                       con => con.CatalogId,
+                                                                       cat => cat.Id,
+                                                                       (con, cat) => new BoundlesJoinCatalogElem
+                                                                       {
+                                                                           Name = cat.Name,
+                                                                           BoundleID = con.BoundleID,
+                                                                           Count = con.Count,
+                                                                           ModuleCount = CalcModuleCount(cat.Name, con.Count)
+                                                                       }).Where(x => x.BoundleID == BoundleID).ToListAsync();
 
 
-                return Ok(boundlesJoinCatalogList);
-            }
+            return Ok(new ConfigsData { Title = KpMaster.Desc, DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"), Revision = KpMaster.Revision, СonfigsElems = boundlesJoinCatalogList });
+
+
         }
 
         /// <summary>
