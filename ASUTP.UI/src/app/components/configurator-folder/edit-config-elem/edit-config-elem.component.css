@@ -1,15 +1,15 @@
-.io-table, table{
+.io-table, table, form{
     margin-top: 45px;
 }
 
-.io-table__item, th {
+.io-table__item, th, form {
     display: flex;
     gap: 8px;
     height: fit-content;
     margin-bottom: 6px;
 }
 
-.io-table__item-text, tr, th{
+.io-table__item-text, tr, th, input{
     background-color: #F7F7F8;
     min-width: 400px;
     height: fit;

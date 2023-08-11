@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguratorService } from 'src/app/services/configurator.service';
 
@@ -10,11 +11,19 @@ import { ConfiguratorService } from 'src/app/services/configurator.service';
 export class EditConfigElemComponent {
   bundleId: number = 0;
 
-  constructor(private route: ActivatedRoute, private configuratorService: ConfiguratorService, private router: Router) { }
+  
+  constructor(private route: ActivatedRoute, private configuratorService: ConfiguratorService, private router: Router, private formBuilder: FormBuilder) { }
   configElemsArr: any[] = [];
   configHeader: any = {};
+  @Input() form!: FormGroup;
+  items: FormArray = new FormArray(this.configElemsArr);
 
   ngOnInit(): void {
+
+    this.form = this.formBuilder.group({
+      items: this.formBuilder.array([]) // Используйте FormArray как часть формы
+    });
+
 
     this.route.paramMap.subscribe({
       next: (params) => {
@@ -27,6 +36,7 @@ export class EditConfigElemComponent {
           .subscribe({
             next: (response) => {
               this.configElemsArr = response.сonfigsElems;
+              this.initializeItems();
               this.configHeader = {Title: response.title, DateTime: response.dateTime, Revision: response.revision}
             },
             error: (response) => {
@@ -47,4 +57,23 @@ export class EditConfigElemComponent {
       }
     })
   }
+
+  initializeItems() {
+    // Здесь заполните массив items данными из API или другим способом
+    // Например:
+    this.configElemsArr.forEach(item => this.addItem(item));
+  }
+
+  addItem(item: any) {
+
+    const newItemGroup = this.formBuilder.group({
+      name: new FormControl(item.name),
+      boundleID: new FormControl(item.boundleID),
+      count: new FormControl(item.count),
+      moduleCount: new FormControl(item.moduleCount)
+    });
+
+    (this.form.get('items') as FormArray).push(newItemGroup);
+  }
+  
 }

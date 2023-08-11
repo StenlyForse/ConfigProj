@@ -28,3 +28,30 @@
 </div>
 
 <button type="submit" class="btn btn-primary">Сформироать отчет</button>
+
+<table class="header-table">
+  <tr>
+    <th>Название модуля</th>
+    <th>Количество сигналов</th>
+    <th>Количество модулей</th>
+  </tr>
+</table>
+
+<!--Работает, но в control позволяет ввести только один символ-->
+<form [formGroup]="form">
+  <div formArrayName="items">
+    <div *ngFor="let configElemGroup of form.get('items')!.value; let i = index;" class="form-group">
+      <div [formGroupName]="i">
+        <label class="center-block">
+          <input formControlName="name" class="form-control" readonly /> 
+        </label>
+        <label class="center-block">  
+          <input formControlName="count" class="form-control" /> 
+        </label>
+        <label class="center-block">
+          <input formControlName="moduleCount" class="form-control" readonly /> 
+        </label>
+      </div>
+    </div>
+  </div>
+</form>
