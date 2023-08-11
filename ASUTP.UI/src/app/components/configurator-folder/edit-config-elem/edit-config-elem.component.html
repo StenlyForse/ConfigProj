@@ -38,7 +38,7 @@
 </table>
 
 <!--Работает, но в control позволяет ввести только один символ-->
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="updateBoundlesDataList()">
   <div formArrayName="items">
     <div *ngFor="let configElemGroup of form.get('items')!.value; let i = index;" class="form-group">
       <div [formGroupName]="i">
@@ -54,4 +54,5 @@
       </div>
     </div>
   </div>
+  <button type="submit" class="btn btn-primary m-1">Изменить</button>
 </form>
