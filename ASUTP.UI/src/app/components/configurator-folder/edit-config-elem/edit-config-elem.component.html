@@ -9,25 +9,7 @@
 	</tbody>
 </table>
 
-<div style="width:100%;height:30px;border:1px solid #000;text-align:center; background-color: #F7F7F8;margin-top:20px;">ПЛК</div>
-
-<table class="header-table">
-    <tr>
-      <th>Название модуля</th>
-      <th>Количество сигналов</th>
-      <th>Количество модулей</th>
-    </tr>
-  </table>
-
-<div class="io-table">
-    <div class="io-table__item" *ngFor="let configElem of configElemsArr">
-        <div class="io-table__item-text">{{configElem.name}} </div>
-        <div class="io-table__item-text">{{configElem.count}} </div>
-        <div class="io-table__item-text">{{configElem.moduleCount}} </div>
-    </div>
-</div>
-
-<button type="submit" class="btn btn-primary">Сформироать отчет</button>
+<div style="width:100%;height:30px;border:1px solid #000;text-align:center; background-color: #F7F7F8;margin-top:10px;">ПЛК</div>
 
 <table class="header-table">
   <tr>
@@ -37,22 +19,15 @@
   </tr>
 </table>
 
-<!--Работает, но в control позволяет ввести только один символ-->
-<form [formGroup]="form" (ngSubmit)="updateBoundlesDataList()">
-  <div formArrayName="items">
-    <div *ngFor="let configElemGroup of form.get('items')!.value; let i = index;" class="form-group">
-      <div [formGroupName]="i">
-        <label class="center-block">
-          <input formControlName="name" class="form-control" readonly /> 
-        </label>
-        <label class="center-block">  
-          <input formControlName="count" class="form-control" /> 
-        </label>
-        <label class="center-block">
-          <input formControlName="moduleCount" class="form-control" readonly /> 
-        </label>
+<form #form="ngForm" (ngSubmit)="updateBoundlesDataList()">
+  <div class="io-table">
+      <div class="io-table__item" *ngFor="let configElem of configElemsArr let i = index;">
+          <div class="io-table__item-text">{{configElem.name}} </div>
+          <div class="io-table__item-text">{{configElem.moduleCount}} </div>
+          <input class="io-table__item-text" [(ngModel)]="configElem.count" [ngModelOptions]="{standalone: true}" />
       </div>
-    </div>
+      <button type="submit" class="btn btn-primary">Изменить</button>
   </div>
-  <button type="submit" class="btn btn-primary m-1">Изменить</button>
+
 </form>
+<button type="submit" class="btn btn-primary">Сформировать отчет</button>
