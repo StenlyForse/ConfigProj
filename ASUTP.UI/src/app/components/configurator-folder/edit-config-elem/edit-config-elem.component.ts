@@ -14,6 +14,7 @@ export class EditConfigElemComponent {
   constructor(private route: ActivatedRoute, private configuratorService: ConfiguratorService, private router: Router) { }
   configElemsArr: any[] = [];
   configHeader: any = {};
+  combineFields: any = {};
   public trigger: number = 0;
 
   ngOnInit(): void {
@@ -43,9 +44,11 @@ export class EditConfigElemComponent {
   }
 
   updateBoundlesDataList() {
-    this.configuratorService.updateBoundlesDataList(this.bundleId, this.configElemsArr)
+    this.combineFields = {Title: this.configHeader.Title, DateTime: this.configHeader.DateTime, Revision: this.configHeader.Revision, СonfigsElems: this.configElemsArr};
+    this.configuratorService.updateBoundlesDataList(this.bundleId, this.combineFields)
     .subscribe({
       next: (response) => {
+        window.location.reload();
         // Возвращаемся назад в список
         //this.router.navigate(['catalog'])
       }

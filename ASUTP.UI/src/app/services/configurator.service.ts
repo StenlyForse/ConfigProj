@@ -40,7 +40,7 @@ export class ConfiguratorService {
     return this.http.get<ConfigElem[]>(this.baseApiUrl + '/api/configurator/configList/' + boudnleId )
   }
 
-    updateBoundlesDataList(boudnleID: number, updateBoundlesDataListRequest: any[]): Observable<ConfigElem[]>{
+    updateBoundlesDataList(boudnleID: number, updateBoundlesDataListRequest: any): Observable<any>{
       return this.http.put<ConfigElem[]>(this.baseApiUrl + '/api/configurator/configList/' + boudnleID, updateBoundlesDataListRequest )
     }
 }

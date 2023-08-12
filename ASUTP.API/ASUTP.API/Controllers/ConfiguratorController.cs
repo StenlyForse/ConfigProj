@@ -99,6 +99,7 @@ namespace ASUTP.API.Controllers
                                                                        cat => cat.Id,
                                                                        (con, cat) => new BoundlesJoinCatalogElem
                                                                        {
+                                                                           Id = con.Id,
                                                                            Name = cat.Name,
                                                                            BoundleID = con.BoundleID,
                                                                            Count = con.Count,
@@ -131,6 +132,39 @@ namespace ASUTP.API.Controllers
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        /// Изменение данных конфигурации на странице edit-config-page
+        /// </summary>
+        /// <param name="BoundleID">Id набора элементов бандла</param>
+        /// <param name="updateBoundlesDataListRequest">Реквест содержащий шапку и массив элементов конфигурации</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("configList/{BoundleID:int}")] // изменили {id:Guid} на {id:int}
+        public async Task<IActionResult> UpdateBoundlesDataList([FromRoute] /*Guid*/int BoundleID, ConfigsData updateBoundlesDataListRequest)
+        {
+            var KpMaster = await _aSUTPDbContext.KPs_Master.Where(x => x.Id == BoundleID).FirstOrDefaultAsync();
+            var boundlesDataList = await _aSUTPDbContext.Configs.Where(x => x.BoundleID == BoundleID).ToListAsync();
+            var requestConfigList = updateBoundlesDataListRequest.СonfigsElems;
+
+            if (KpMaster != null && (KpMaster.Desc != updateBoundlesDataListRequest.Title || KpMaster.Revision != updateBoundlesDataListRequest.Revision))
+            {
+                KpMaster.Desc = updateBoundlesDataListRequest.Title;
+                KpMaster.Revision = updateBoundlesDataListRequest.Revision;
+            }
+
+            foreach (var elemFromRequest in requestConfigList)
+            {
+                var elemFromDb = boundlesDataList.Find(x => x.Id == elemFromRequest.Id);
+                if (elemFromDb.Count != elemFromRequest.Count)
+                {
+                    elemFromDb.Count = elemFromRequest.Count;
+                }
+            }
+
+            await _aSUTPDbContext.SaveChangesAsync();
+            return Ok();
         }
     }
 }
