@@ -1,7 +1,7 @@
 <div class="container my-5">
     <h1 class="mb-3">Каталог</h1>
     <!-- <div class="table-responsive"> -->
-        <table datatable class="table table-striped table-hover row-border w-100 " *ngIf="catalog && catalog.length > 0">
+        <table datatable [dtOptions]="dtOptions" class="table table-striped table-hover row-border w-100 " *ngIf="catalog && catalog.length > 0">
             <thead >
                 <tr class="table-primary">
                     <th>Id</th>
