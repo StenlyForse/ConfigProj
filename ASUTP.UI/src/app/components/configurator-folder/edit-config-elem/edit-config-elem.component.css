@@ -11,7 +11,7 @@
 
 .io-table__item-text, tr, th, input{
     background-color: #F7F7F8;
-    min-width: 400px;
+    min-width: 200px;
     height: fit;
     display: flex;
     align-items: center;

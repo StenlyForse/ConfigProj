@@ -159,6 +159,7 @@ namespace ASUTP.API.Controllers
 
         /// <summary>
         /// Изменение данных конфигурации на странице edit-config-page
+        /// Изменяем count в БД, после этого на фронте перезагружаем страницу и он пересчитывает
         /// </summary>
         /// <param name="BoundleID">Id набора элементов бандла</param>
         /// <param name="updateBoundlesDataListRequest">Реквест содержащий шапку и массив элементов конфигурации</param>

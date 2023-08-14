@@ -18,6 +18,12 @@
     <th>Название модуля</th>
     <th>Количество модулей</th>
     <th>Количество сигналов</th>
+    <th>Описание</th>
+    <th>Валюта</th>
+    <th>Цена без НДС</th>
+    <th>Цена с НДС</th>
+    <th>Вендор</th>
+    <th>Итого</th>
   </tr>
 </table>
 
@@ -27,9 +33,33 @@
           <div class="io-table__item-text">{{configElem.name}} </div>
           <div class="io-table__item-text">{{configElem.moduleCount}} </div>
           <input class="io-table__item-text" [(ngModel)]="configElem.count" [ngModelOptions]="{standalone: true}" />
+
+          <div class="io-table__item-text">{{configElem.desc}} </div>
+          <div class="io-table__item-text">{{configElem.currency}} </div>
+          <div class="io-table__item-text">{{configElem.price_w_taxStr}} </div>
+          <div class="io-table__item-text">{{configElem.price_wo_taxStr}} </div>
+          <div class="io-table__item-text">{{configElem.vendorName}} </div>
+          <div class="io-table__item-text">{{configElem.totalStr}} </div>
+
       </div>
       <button type="submit" class="btn btn-primary">Изменить</button>
   </div>
 
 </form>
+
+<form #form3="ngForm" (ngSubmit)="updateBoundlesDataList()">
+  <table class="header-table">
+    <tbody>
+      <tr>
+        <th>Итого: {{configTotals.Total}}</th>
+      </tr>
+      <tr>
+        <th>НДС: {{configTotals.PureNDS}}</th>
+      </tr>
+      <tr>
+        <th>Итого с НДС: {{configTotals.TotalWithNDS}}</th>
+      </tr>
+    </tbody>
+  </table>
+  </form>
 <button type="submit" class="btn btn-primary">Сформировать КП</button>
