@@ -16,6 +16,13 @@
         public int BoundleID { get; set; }
         public int Count { get; set; }
         public int ModuleCount { get; set; }
+        public string? Desc { get; set; }
+        public string? Currency { get; set; }
+        public decimal? Price_w_tax { get; set; }
+        public decimal? Price_wo_tax { get; set; }
+        public string? VendorName { get; set; }
+        public decimal? Total { get; set; }
+
     }
 
     /// <summary>
@@ -26,6 +33,9 @@
         public string? Title { get; set; }
         public string DateTime { get; set; }
         public int Revision { get; set; }
+        public decimal? Total { get; set; }
+        public decimal? PureNDS { get; set; }
+        public decimal? TotalWithNDS { get; set; }
         public List<BoundlesJoinCatalogElem>? СonfigsElems { get; set; }
     }
 }

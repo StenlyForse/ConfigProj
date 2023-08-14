@@ -7,10 +7,13 @@
         public string? Reference { get; set; }
         public string? Name { get; set; }
         //public decimal? Price { get; set; }
+        public decimal? Price_w_tax { get; set; }
         public decimal? Price_wo_tax { get; set; }
         public string? Currency { get; set; }
         //public string? Note { get; set; }
         public string? Comment { get; set; }
+        public string? VendorName { get; set; }
+
         /// <summary>
         /// Description
         /// </summary>

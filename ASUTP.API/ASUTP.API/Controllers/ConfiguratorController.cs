@@ -103,11 +103,29 @@ namespace ASUTP.API.Controllers
                                                                            Name = cat.Name,
                                                                            BoundleID = con.BoundleID,
                                                                            Count = con.Count,
-                                                                           ModuleCount = CalcModuleCount(cat.Name, con.Count)
+                                                                           ModuleCount = CalcModuleCount(cat.Name, con.Count),
+                                                                           Desc = cat.Desc,
+                                                                           Currency = cat.Currency,
+                                                                           Price_w_tax = cat.Price_w_tax,
+                                                                           Price_wo_tax = cat.Price_wo_tax,
+                                                                           VendorName = cat.VendorName,
+                                                                           Total = CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax
                                                                        }).Where(x => x.BoundleID == BoundleID).ToListAsync();
 
+            var total = boundlesJoinCatalogList.Select(x => x.Total).Sum();
+            var pureNDS = total * (decimal)0.2;
+            var totalWithNDS = total + pureNDS;
 
-            return Ok(new ConfigsData { Title = KpMaster.Desc, DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"), Revision = KpMaster.Revision, СonfigsElems = boundlesJoinCatalogList });
+            return Ok(new ConfigsData
+            {
+                Title = KpMaster.Desc,
+                DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"),
+                Revision = KpMaster.Revision,
+                СonfigsElems = boundlesJoinCatalogList,
+                Total = total,
+                PureNDS = pureNDS,
+                TotalWithNDS = totalWithNDS
+            });
 
 
         }
