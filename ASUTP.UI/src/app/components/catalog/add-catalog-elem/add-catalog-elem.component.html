@@ -1,13 +1,13 @@
 <div class="container my-5">
-    <h1 class="mb-3">Добавить элемент в каталог</h1>
+    <h1 class="mb-3 text-center">Добавить элемент в каталог</h1>
 
-    <div class="row">
-        <div class="col-6">
-            <form #form="ngForm" (ngSubmit)="addCatalogElem()">
+    <div class="row px-4">
+        <div class="col-md-8 bg-body-tertiary rounded-3 py-4 m-auto mt-4">
+            <form class="p-sm-1" #form="ngForm" (ngSubmit)="addCatalogElem()">
                 <div class="mb-3">
                   <label for="elementInput" class="form-label">Element</label>
                   <input type="text" class="form-control" id="elementInput" aria-describedby="elementHelp"
-                  name="element" [(ngModel)]="addCatalogElementRequest.element">
+                  name="element"  [(ngModel)]="addCatalogElementRequest.element">
                   <div id="elementHelp" class="form-text">Введите элемент, например "SCALANCE S602"</div>
                 </div>
                 <div class="mb-3">
@@ -41,7 +41,7 @@
                     <div id="noteHelp" class="form-text">Примечание</div>
                 </div>
         
-                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <button type="submit" class="btn btn-primary mt-4">Сохранить</button>
             </form>
         </div>
     </div>

@@ -40,6 +40,7 @@ export class CatalogListComponent {
       note: 'Весьма ценный'
     }*/
   ];
+  dtOptions: DataTables.Settings = {};
 
 
   constructor(private catalogService: CatalogService) { }
@@ -53,7 +54,12 @@ export class CatalogListComponent {
       error: (response) => {
         console.log(response)
       }
-    })
-
+    });
+    this.dtOptions = {
+        // pagingType: 'full_numbers',
+        language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/ru.json',
+        },
+      };
   }
 }

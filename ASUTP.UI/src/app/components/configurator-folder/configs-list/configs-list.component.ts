@@ -13,6 +13,7 @@ export class ConfigsListComponent {
   configElem: any[] = [];
   items: any[] = [];
   config: any[] = [];
+  dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {
 
@@ -24,6 +25,12 @@ export class ConfigsListComponent {
         console.log('Ошибка при получении списка:', error);
       }
     );
+    this.dtOptions = {
+        // pagingType: 'full_numbers',
+        language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/ru.json',
+        },
+      };
   }
 
   selectedItem: string = ''; // Выбранный элемент из списка
