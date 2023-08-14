@@ -103,11 +103,34 @@ namespace ASUTP.API.Controllers
                                                                            Name = cat.Name,
                                                                            BoundleID = con.BoundleID,
                                                                            Count = con.Count,
-                                                                           ModuleCount = CalcModuleCount(cat.Name, con.Count)
+                                                                           ModuleCount = CalcModuleCount(cat.Name, con.Count),
+                                                                           Desc = cat.Desc,
+                                                                           Currency = cat.Currency,
+                                                                           Price_w_taxStr = cat.Price_w_tax.Value.ToString("0.00") + " ₽",
+                                                                           Price_wo_taxStr = cat.Price_wo_tax.Value.ToString("0.00") + " ₽",
+                                                                           VendorName = cat.VendorName,
+                                                                           Total = decimal.Round((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax), 2, MidpointRounding.AwayFromZero),
+                                                                           TotalStr = ((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax).Value).ToString("0.00") + " ₽"
                                                                        }).Where(x => x.BoundleID == BoundleID).ToListAsync();
 
+            var total = boundlesJoinCatalogList.Select(x => x.Total).Sum();
+            var pureNDS = total * (decimal)0.2;
+            var totalWithNDS = total + pureNDS;
 
-            return Ok(new ConfigsData { Title = KpMaster.Desc, DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"), Revision = KpMaster.Revision, СonfigsElems = boundlesJoinCatalogList });
+            string totalStr = $"{total.Value.ToString("0.00")} ₽";
+            string pureNDSStr = $"{pureNDS.Value.ToString("0.00")} ₽";
+            string totalWithNDSStr = $"{totalWithNDS.Value.ToString("0.00")} ₽";
+
+            return Ok(new ConfigsData
+            {
+                Title = KpMaster.Desc,
+                DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"),
+                Revision = KpMaster.Revision,
+                СonfigsElems = boundlesJoinCatalogList,
+                Total = totalStr,
+                PureNDS = pureNDSStr,
+                TotalWithNDS = totalWithNDSStr
+            });
 
 
         }
@@ -136,6 +159,7 @@ namespace ASUTP.API.Controllers
 
         /// <summary>
         /// Изменение данных конфигурации на странице edit-config-page
+        /// Изменяем count в БД, после этого на фронте перезагружаем страницу и он пересчитывает
         /// </summary>
         /// <param name="BoundleID">Id набора элементов бандла</param>
         /// <param name="updateBoundlesDataListRequest">Реквест содержащий шапку и массив элементов конфигурации</param>

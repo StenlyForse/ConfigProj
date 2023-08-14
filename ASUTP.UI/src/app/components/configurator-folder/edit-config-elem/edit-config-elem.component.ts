@@ -14,6 +14,7 @@ export class EditConfigElemComponent {
   constructor(private route: ActivatedRoute, private configuratorService: ConfiguratorService, private router: Router) { }
   configElemsArr: any[] = [];
   configHeader: any = {};
+  configTotals: any = {};
   combineFields: any = {};
   public trigger: number = 0;
 
@@ -33,6 +34,7 @@ export class EditConfigElemComponent {
             next: (response) => {
               this.configElemsArr = response.сonfigsElems;
               this.configHeader = {Title: response.title, DateTime: response.dateTime, Revision: response.revision}
+              this.configTotals = {Total: response.total, PureNDS: response.pureNDS, TotalWithNDS: response.totalWithNDS}
             },
             error: (response) => {
               console.log(response)

@@ -16,6 +16,17 @@
         public int BoundleID { get; set; }
         public int Count { get; set; }
         public int ModuleCount { get; set; }
+        public string? Desc { get; set; }
+        public string? Currency { get; set; }
+        public decimal? Price_w_tax { get; set; }
+        public decimal? Price_wo_tax { get; set; }
+        public string? VendorName { get; set; }
+        public decimal? Total { get; set; }
+        // Строки для отображения с ₽
+        public string? Price_w_taxStr { get; set; }
+        public string? Price_wo_taxStr { get; set; }
+        public string? TotalStr { get; set; }
+
     }
 
     /// <summary>
@@ -26,6 +37,9 @@
         public string? Title { get; set; }
         public string DateTime { get; set; }
         public int Revision { get; set; }
+        public string? Total { get; set; }
+        public string? PureNDS { get; set; }
+        public string? TotalWithNDS { get; set; }
         public List<BoundlesJoinCatalogElem>? СonfigsElems { get; set; }
     }
 }
