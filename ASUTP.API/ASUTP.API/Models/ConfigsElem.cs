@@ -22,6 +22,10 @@
         public decimal? Price_wo_tax { get; set; }
         public string? VendorName { get; set; }
         public decimal? Total { get; set; }
+        // Строки для отображения с ₽
+        public string? Price_w_taxStr { get; set; }
+        public string? Price_wo_taxStr { get; set; }
+        public string? TotalStr { get; set; }
 
     }
 
@@ -33,9 +37,9 @@
         public string? Title { get; set; }
         public string DateTime { get; set; }
         public int Revision { get; set; }
-        public decimal? Total { get; set; }
-        public decimal? PureNDS { get; set; }
-        public decimal? TotalWithNDS { get; set; }
+        public string? Total { get; set; }
+        public string? PureNDS { get; set; }
+        public string? TotalWithNDS { get; set; }
         public List<BoundlesJoinCatalogElem>? СonfigsElems { get; set; }
     }
 }

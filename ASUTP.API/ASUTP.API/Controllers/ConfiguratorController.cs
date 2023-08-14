@@ -106,15 +106,20 @@ namespace ASUTP.API.Controllers
                                                                            ModuleCount = CalcModuleCount(cat.Name, con.Count),
                                                                            Desc = cat.Desc,
                                                                            Currency = cat.Currency,
-                                                                           Price_w_tax = cat.Price_w_tax,
-                                                                           Price_wo_tax = cat.Price_wo_tax,
+                                                                           Price_w_taxStr = cat.Price_w_tax.Value.ToString("0.00") + " ₽",
+                                                                           Price_wo_taxStr = cat.Price_wo_tax.Value.ToString("0.00") + " ₽",
                                                                            VendorName = cat.VendorName,
-                                                                           Total = CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax
+                                                                           Total = decimal.Round((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax), 2, MidpointRounding.AwayFromZero),
+                                                                           TotalStr = ((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax).Value).ToString("0.00") + " ₽"
                                                                        }).Where(x => x.BoundleID == BoundleID).ToListAsync();
 
             var total = boundlesJoinCatalogList.Select(x => x.Total).Sum();
             var pureNDS = total * (decimal)0.2;
             var totalWithNDS = total + pureNDS;
+
+            string totalStr = $"{total.Value.ToString("0.00")} ₽";
+            string pureNDSStr = $"{pureNDS.Value.ToString("0.00")} ₽";
+            string totalWithNDSStr = $"{totalWithNDS.Value.ToString("0.00")} ₽";
 
             return Ok(new ConfigsData
             {
@@ -122,9 +127,9 @@ namespace ASUTP.API.Controllers
                 DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"),
                 Revision = KpMaster.Revision,
                 СonfigsElems = boundlesJoinCatalogList,
-                Total = total,
-                PureNDS = pureNDS,
-                TotalWithNDS = totalWithNDS
+                Total = totalStr,
+                PureNDS = pureNDSStr,
+                TotalWithNDS = totalWithNDSStr
             });
 
 
