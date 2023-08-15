@@ -33,23 +33,39 @@ export class ConfiguratorComponent {
   // Инициализация массива
   initializeItems() {
     for (let i = 0; i < this.catalog.length; i++) {
-      this.configArr[i] = {id: 0, catalogId: this.catalog[i].id, name: this.catalog[i].name, count: 0, boundleID: 0 };
+      this.configArr[i] = {id: 0, catalogId: this.catalog[i].id, name: this.catalog[i].name, inputCount: 0, boundleID: 0, count: 0 };
     }
   }
 
-
+ // При убирании курсора с инпута
   onInputBlur(index: number) {
-    if (this.configArr[index].count === undefined) {
-      // Если значение в count пусто, устанавливаем значение из placeholder (например, 0)
+    if (this.configArr[index].inputCount === undefined) {
+      // Если значение в inputCount пусто, устанавливаем значение из placeholder (например, 0)
+      this.configArr[index].inputCount = 0;
       this.configArr[index].count = 0;
+    }
+    // Записываем значение с резервом
+    this.configArr[index].count =  this.configArr[index].inputCount + this.configArr[index].inputCount * this.reserveValue;
+  }
+
+  // Событие при изменении резерва
+  reserveValue: number = 0; // Резерв
+  onChangeReserve(event: any): void {
+    // Получение по изменению
+    this.reserveValue = parseInt(event.target.value)/100;
+
+    // Умножаем всё на резерв 
+    for (let i = 0; i < this.configArr.length; i++) {
+      this.configArr[i].count =  Math.ceil(this.configArr[i].inputCount + this.configArr[i].inputCount * this.reserveValue);
     }
   }
 
   addConfig(): void {
-    // Проверяем все значения count и устанавливаем значения по умолчанию, если не заполнены
+    // Проверяем все значения inputCount и устанавливаем значения по умолчанию, если не заполнены
     for (let i = 0; i < this.catalog.length; i++) {
-      if (this.configArr[i].count === undefined) {
-        // Если значение в count пусто, устанавливаем значение из placeholder (например, 0)
+      if (this.configArr[i].inputCount === undefined) {
+        // Если значение в inputCount пусто, устанавливаем значение из placeholder (например, 0)
+        this.configArr[i].inputCount = 0;
         this.configArr[i].count = 0;
       }
     }

@@ -38,15 +38,25 @@
         <div class="network">
             Системная шина
         </div>
-    <!--План: инпутом собираю все цифры, отправляю в бек с id и названием, там вычленяю делитель, делю и записываю в таблицу Configs с catalogID и в count кол-во штук-->
+
+        <div>
+            <div>Резерв, %</div>
+            <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="Reserv" (change)="onChangeReserve($event)">
+            <!--<div>
+                <input type="checkbox" id="dublicating" name="dublicating" />
+                <label for="dublicating">Дублирование</label>
+            </div>   -->
+        </div>
+    <!--План: инпутом собираю все цифры, отправляю в бек с id и названием, там вычленяю делитель, делю и записываю в таблицу Configs с catalogID и в inputCount кол-во штук-->
     <!--потом на отдельной странице выбираю BoundleID и по нему вывожу элементы с описанием из каталога и их кол-во-->
         <form #form="ngForm">
             <div class="io-table">
                 <div class="io-table__item" *ngFor="let catalogElem of catalog let i = index;">
                     <div class="io-table__item-text">{{catalogElem.name}} </div>
                     <div class="io-table__item-text">{{catalogElem.desc}} </div>
-                    <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name" name="qty_{{i}}" [(ngModel)]="configArr[i].count"
+                    <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name" name="qty_{{i}}" [(ngModel)]="configArr[i].inputCount"
                     [ngModelOptions]="{standalone: true}" (blur)="onInputBlur(i)">
+                    <div class="io-table__item-text">{{configArr[i].count}} </div>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" (click)="addConfig()">Создать</button>
