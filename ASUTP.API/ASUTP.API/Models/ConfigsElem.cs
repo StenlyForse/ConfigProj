@@ -42,4 +42,11 @@
         public string? TotalWithNDS { get; set; }
         public List<BoundlesJoinCatalogElem>? СonfigsElems { get; set; }
     }
+
+    // Комбинированный объект для массивов цпу и контроллеров
+    public class CpuAndControllersData
+    {
+        public ConfigsElem[]? cpu { get; set; }
+        public ConfigsElem[]? controllers { get; set; }
+    }
 }

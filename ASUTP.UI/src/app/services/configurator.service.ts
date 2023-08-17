@@ -17,8 +17,8 @@ export class ConfiguratorService {
   constructor(private http: HttpClient) { }
 
   // Получение модулей К3
-  getCatalogK3(): Observable<CatalogElem[]>{
-    return this.http.get<CatalogElem[]>(this.baseApiUrl + '/api/configurator', )
+  getCatalogK3(): Observable<any>{
+    return this.http.get<any>(this.baseApiUrl + '/api/configurator', )
   }
 
   addConfig(addConfigRequest: ConfigElem[]): Observable<ConfigElem[]> {

@@ -42,16 +42,25 @@
         <div>
             <div>Резерв, %</div>
             <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="Reserv" (change)="onChangeReserve($event)">
-            <!--<div>
-                <input type="checkbox" id="dublicating" name="dublicating" />
+            <div>
+                <input type="checkbox" id="dublicating" name="dublicating" (change)="onChangeDublicating($event)" />
                 <label for="dublicating">Дублирование</label>
-            </div>   -->
+            </div>
         </div>
+        <form #form1="ngForm">
+            <div class="io-table">
+                <div class="io-table__item" *ngFor="let cpuElem of cpu let i = index;">
+                    <div class="io-table__item-text">{{cpuElem.name}} </div>
+                    <div class="io-table__item-text">{{cpuElem.desc}} </div>
+                    <div class="io-table__item-text">{{cpuArr[i].count}} </div>
+                </div>
+            </div>
+        </form>
     <!--План: инпутом собираю все цифры, отправляю в бек с id и названием, там вычленяю делитель, делю и записываю в таблицу Configs с catalogID и в inputCount кол-во штук-->
     <!--потом на отдельной странице выбираю BoundleID и по нему вывожу элементы с описанием из каталога и их кол-во-->
-        <form #form="ngForm">
+        <form #form2="ngForm">
             <div class="io-table">
-                <div class="io-table__item" *ngFor="let catalogElem of catalog let i = index;">
+                <div class="io-table__item" *ngFor="let catalogElem of controllers let i = index;">
                     <div class="io-table__item-text">{{catalogElem.name}} </div>
                     <div class="io-table__item-text">{{catalogElem.desc}} </div>
                     <input class="io-table__item-qty" type="number" placeholder = "0" aria-label="First name" name="qty_{{i}}" [(ngModel)]="configArr[i].inputCount"

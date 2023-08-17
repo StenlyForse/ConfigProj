@@ -23,14 +23,22 @@ namespace ASUTP.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCatalogK3()
         {
-            string[] outputElem = new string[] { "K3.DI", "K3.DO", "K3.AI", "K3.AO" };
             //var catalogElemList = await _aSUTPDbContext.Catalog.Where(x => outputElem.All(y => x.Name.StartsWith(y))).ToListAsync();
-            var catalogElemList = await _aSUTPDbContext.Catalog.Where(x => x.Name.StartsWith("K3.DO") || 
+            var controllerElemList = await _aSUTPDbContext.Catalog.Where(x => 
+            x.Name.StartsWith("K3.DO") || 
             x.Name.StartsWith("K3.DI") ||
             x.Name.StartsWith("K3.AO") ||
             x.Name.StartsWith("K3.AI")).ToListAsync();
 
-            return Ok(catalogElemList);
+              var cpuElemList = await _aSUTPDbContext.Catalog.Where(x => 
+            x.Name.StartsWith("K3.TM") ||
+            x.Name.StartsWith("K3.PM") ||
+            x.Name.StartsWith("K3.CPU") ||
+            x.Name.StartsWith("K3.IM")).ToListAsync();
+
+            var elementList = new {cpu = cpuElemList, controllers = controllerElemList };
+
+            return Ok(elementList);
         }
 
         /// <summary>
@@ -39,15 +47,26 @@ namespace ASUTP.API.Controllers
         /// <param name="requestData"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> AddConfig([FromBody] ConfigsElem[] requestData)
+        public async Task<IActionResult> AddConfig([FromBody] CpuAndControllersData requestData)
         {
             var maxBoundleId = await _aSUTPDbContext.Configs.MaxAsync(x => x.BoundleID);
             var newBoundId = maxBoundleId + 1;
-            foreach (var elem in requestData)
+
+            // Имеет 2 ConfigArr[] - cpu и controllers
+            var cpu = requestData.cpu;
+            var controllers = requestData.controllers;
+
+            foreach (var elem in cpu)
             {
                 elem.BoundleID = newBoundId;
             }
-            await _aSUTPDbContext.Configs.AddRangeAsync(requestData);
+            foreach (var elem in controllers)
+            {
+                elem.BoundleID = newBoundId;
+            }
+
+            await _aSUTPDbContext.Configs.AddRangeAsync(cpu);
+            await _aSUTPDbContext.Configs.AddRangeAsync(controllers);
             await _aSUTPDbContext.SaveChangesAsync();
 
             // Добавляем строку в KPs_Master, пока хардкод
@@ -65,7 +84,7 @@ namespace ASUTP.API.Controllers
             return Ok(newBoundId);
         }
 
-        // Возвращает либо уникальные id сборок, либо саму сборку по переданному id
+        // Возвращает список сборок
         [HttpGet("configList")]
         //[ActionName("GetConfigByBoundleId")]
         public async Task<IActionResult> GetBoundlesList()
@@ -82,6 +101,9 @@ namespace ASUTP.API.Controllers
                                                                Id = k.Id,
                                                                Revision = k.Revision
                                                            }).ToList();
+
+            var cpuList = boundlesJoinCatalogList.Where(x => x.Id == 52 || x.Id == 53).ToList();
+            var b = new { One = boundlesJoinCatalogList, Two = cpuList };
 
                 return Ok(boundlesJoinCatalogList);
         }

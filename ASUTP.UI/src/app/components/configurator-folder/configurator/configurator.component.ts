@@ -11,8 +11,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./configurator.component.css']
 })
 export class ConfiguratorComponent {
-  catalog: CatalogElem[] = [];
+  controllers: CatalogElem[] = [];
+  cpu: CatalogElem[] = [];
   configArr: ConfigElem[] = [];
+  cpuArr: ConfigElem[] = [];
+  combinedArr: any = {};
 
   constructor(private configuratorService: ConfiguratorService, private router: Router) { }
 
@@ -21,7 +24,8 @@ export class ConfiguratorComponent {
     this.configuratorService.getCatalogK3()
     .subscribe({
       next: (catalog) => {
-        this.catalog = catalog;
+        this.controllers = catalog.controllers;
+        this.cpu = catalog.cpu;
         this.initializeItems();
       },
       error: (response) => {
@@ -32,8 +36,12 @@ export class ConfiguratorComponent {
 
   // Инициализация массива
   initializeItems() {
-    for (let i = 0; i < this.catalog.length; i++) {
-      this.configArr[i] = {id: 0, catalogId: this.catalog[i].id, name: this.catalog[i].name, inputCount: 0, boundleID: 0, count: 0 };
+    for (let i = 0; i < this.controllers.length; i++) {
+      this.configArr[i] = {id: 0, catalogId: this.controllers[i].id, name: this.controllers[i].name, inputCount: 0, boundleID: 0, count: 0 };
+    }
+
+    for (let i = 0; i < this.cpu.length; i++) {
+      this.cpuArr[i] = {id: 0, catalogId: this.cpu[i].id, name: this.cpu[i].name, inputCount: 0, boundleID: 0, count: 1 };
     }
   }
 
@@ -62,7 +70,7 @@ export class ConfiguratorComponent {
 
   addConfig(): void {
     // Проверяем все значения inputCount и устанавливаем значения по умолчанию, если не заполнены
-    for (let i = 0; i < this.catalog.length; i++) {
+    for (let i = 0; i < this.controllers.length; i++) {
       if (this.configArr[i].inputCount === undefined) {
         // Если значение в inputCount пусто, устанавливаем значение из placeholder (например, 0)
         this.configArr[i].inputCount = 0;
@@ -70,7 +78,16 @@ export class ConfiguratorComponent {
       }
     }
 
-    this.configuratorService.addConfig(this.configArr)
+    for (let i = 0; i < this.cpu.length; i++) {
+      if (this.cpuArr[i].inputCount === undefined) {
+        // Если значение в inputCount пусто, устанавливаем значение из placeholder (например, 0)
+        this.cpuArr[i].inputCount = 0;
+        this.cpuArr[i].count = 1;
+      }
+    }
+    this.combinedArr = {cpu: this.cpuArr, controllers: this.configArr}
+
+    this.configuratorService.addConfig(this.combinedArr)
     .subscribe({
       next: (configElem) => {
         alert('Новая конфигурация добавлена, её уникальный номер: ' + configElem);
@@ -83,7 +100,17 @@ export class ConfiguratorComponent {
     })
     
     console.log(this.configArr);
+  }
 
-    // test commit by Ruslan
+  onChangeDublicating(event: any): void {
+    // Получение по изменению
+    if (event.target.checked)
+    for (let i = 0; i < this.cpu.length; i++) {
+      this.cpuArr[i].count = 2;
+    }
+    else
+    for (let i = 0; i < this.cpu.length; i++) {
+      this.cpuArr[i].count = 1;
+    }
   }
 }
