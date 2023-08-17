@@ -116,12 +116,12 @@ namespace ASUTP.API.Controllers
 
             var KpMaster = await _aSUTPDbContext.KPs_Master.Where(x => x.Id == BoundleID).FirstOrDefaultAsync();
 
-            var boundlesJoinCatalogList =  await _aSUTPDbContext.Configs.Join(_aSUTPDbContext.Catalog,
+            var boundlesJoinCatalogList = await _aSUTPDbContext.Configs.Join(_aSUTPDbContext.Catalog,
                                                                        con => con.CatalogId,
                                                                        cat => cat.Id,
                                                                        (con, cat) => new BoundlesJoinCatalogElem
                                                                        {
-                                                                           Id = con.Id,
+                                                                           Id = cat.Id,
                                                                            Name = cat.Name,
                                                                            BoundleID = con.BoundleID,
                                                                            Count = con.Count,
@@ -130,10 +130,18 @@ namespace ASUTP.API.Controllers
                                                                            Currency = cat.Currency,
                                                                            Price_w_taxStr = cat.Price_w_tax.Value.ToString("0.00") + " ₽",
                                                                            Price_wo_taxStr = cat.Price_wo_tax.Value.ToString("0.00") + " ₽",
+                                                                           Price_wo_tax = cat.Price_wo_tax,
+                                                                           Price_w_tax = cat.Price_w_tax,
                                                                            VendorName = cat.VendorName,
                                                                            Total = decimal.Round((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax), 2, MidpointRounding.AwayFromZero),
                                                                            TotalStr = ((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax).Value).ToString("0.00") + " ₽"
                                                                        }).Where(x => x.BoundleID == BoundleID).ToListAsync();
+
+            // Костыль для добавления элементам цпу стоимости и количества модулей - позже перенести цпу в отдельный архив
+            boundlesJoinCatalogList.Where(x => x.Id >= 55 && x.Id <= 58).ToList().ForEach(y => { y.ModuleCount = y.Count; 
+                                                                                                 y.Total = decimal.Round((decimal)(y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero);
+                                                                                                 y.TotalStr = decimal.Round((decimal)((decimal)y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero).ToString("0.00") + " ₽";
+            });
 
             var total = boundlesJoinCatalogList.Select(x => x.Total).Sum();
             var pureNDS = total * (decimal)0.2;
