@@ -13,6 +13,7 @@ export class EditConfigElemComponent {
   
   constructor(private route: ActivatedRoute, private configuratorService: ConfiguratorService, private router: Router) { }
   configElemsArr: any[] = [];
+  cpuElemsArr: any[] = [];
   configHeader: any = {};
   configTotals: any = {};
   combineFields: any = {};
@@ -33,6 +34,7 @@ export class EditConfigElemComponent {
           .subscribe({
             next: (response) => {
               this.configElemsArr = response.сonfigsElems;
+              this.cpuElemsArr = response.cpuElems;
               this.configHeader = {Title: response.title, DateTime: response.dateTime, Revision: response.revision}
               this.configTotals = {Total: response.total, PureNDS: response.pureNDS, TotalWithNDS: response.totalWithNDS}
             },
@@ -46,7 +48,7 @@ export class EditConfigElemComponent {
   }
 
   updateBoundlesDataList() {
-    this.combineFields = {Title: this.configHeader.Title, DateTime: this.configHeader.DateTime, Revision: this.configHeader.Revision, СonfigsElems: this.configElemsArr};
+    this.combineFields = {Title: this.configHeader.Title, DateTime: this.configHeader.DateTime, Revision: this.configHeader.Revision, СonfigsElems: this.configElemsArr, CpuElems: this.cpuElemsArr};
     this.configuratorService.updateBoundlesDataList(this.bundleId, this.combineFields)
     .subscribe({
       next: (response) => {

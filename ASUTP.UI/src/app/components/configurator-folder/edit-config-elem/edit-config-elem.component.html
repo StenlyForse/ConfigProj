@@ -11,6 +11,37 @@
 </table>
 </form>
 
+<table class="header-table">
+  <tr>
+    <th>Название модуля</th>
+    <th>Количество модулей</th>
+    <th>Описание</th>
+    <th>Валюта</th>
+    <th>Цена без НДС</th>
+    <th>Цена с НДС</th>
+    <th>Вендор</th>
+    <th>Итого</th>
+  </tr>
+</table>
+<!--Таблица цпу и других модулей-->
+<form #form2="ngForm" (ngSubmit)="updateBoundlesDataList()">
+  <div class="io-table">
+      <div class="io-table__item" *ngFor="let cpuElem of cpuElemsArr let i = index;">
+          <div class="io-table__item-text">{{cpuElem.name}} </div>
+          <input class="io-table__item-text" [(ngModel)]="cpuElem.count" [ngModelOptions]="{standalone: true}" />
+
+          <div class="io-table__item-text">{{cpuElem.desc}} </div>
+          <div class="io-table__item-text">{{cpuElem.currency}} </div>
+          <div class="io-table__item-text">{{cpuElem.price_w_taxStr}} </div>
+          <div class="io-table__item-text">{{cpuElem.price_wo_taxStr}} </div>
+          <div class="io-table__item-text">{{cpuElem.vendorName}} </div>
+          <div class="io-table__item-text">{{cpuElem.totalStr}} </div>
+
+      </div>
+  </div>
+
+</form>
+
 <div style="width:100%;height:30px;border:1px solid #000;text-align:center; background-color: #F7F7F8;margin-top:10px;">ПЛК</div>
 
 <table class="header-table">
@@ -27,7 +58,7 @@
   </tr>
 </table>
 
-<form #form2="ngForm" (ngSubmit)="updateBoundlesDataList()">
+<form #form3="ngForm" (ngSubmit)="updateBoundlesDataList()">
   <div class="io-table">
       <div class="io-table__item" *ngFor="let configElem of configElemsArr let i = index;">
           <div class="io-table__item-text">{{configElem.name}} </div>
@@ -47,7 +78,7 @@
 
 </form>
 
-<form #form3="ngForm" (ngSubmit)="updateBoundlesDataList()">
+<form #form4="ngForm" (ngSubmit)="updateBoundlesDataList()">
   <table class="header-table">
     <tbody>
       <tr>
