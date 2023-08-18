@@ -121,7 +121,8 @@ namespace ASUTP.API.Controllers
                                                                        cat => cat.Id,
                                                                        (con, cat) => new BoundlesJoinCatalogElem
                                                                        {
-                                                                           Id = cat.Id,
+                                                                           Id = con.Id,
+                                                                           CatalogId = cat.Id,
                                                                            Name = cat.Name,
                                                                            BoundleID = con.BoundleID,
                                                                            Count = con.Count,
@@ -138,10 +139,13 @@ namespace ASUTP.API.Controllers
                                                                        }).Where(x => x.BoundleID == BoundleID).ToListAsync();
 
             // Костыль для добавления элементам цпу стоимости и количества модулей - позже перенести цпу в отдельный архив
-            boundlesJoinCatalogList.Where(x => x.Id >= 55 && x.Id <= 58).ToList().ForEach(y => { y.ModuleCount = y.Count; 
+            boundlesJoinCatalogList.Where(x => x.CatalogId >= 55 && x.CatalogId <= 58).ToList().ForEach(y => { y.ModuleCount = y.Count; 
                                                                                                  y.Total = decimal.Round((decimal)(y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero);
                                                                                                  y.TotalStr = decimal.Round((decimal)((decimal)y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero).ToString("0.00") + " ₽";
             });
+
+            var cpuList = boundlesJoinCatalogList.Where(x => x.CatalogId >= 55 && x.CatalogId <= 58).ToList();
+            boundlesJoinCatalogList.RemoveAll(x => x.CatalogId >= 55 && x.CatalogId <= 58);
 
             var total = boundlesJoinCatalogList.Select(x => x.Total).Sum();
             var pureNDS = total * (decimal)0.2;
@@ -157,6 +161,7 @@ namespace ASUTP.API.Controllers
                 DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"),
                 Revision = KpMaster.Revision,
                 СonfigsElems = boundlesJoinCatalogList,
+                CpuElems = cpuList,
                 Total = totalStr,
                 PureNDS = pureNDSStr,
                 TotalWithNDS = totalWithNDSStr
@@ -201,6 +206,7 @@ namespace ASUTP.API.Controllers
             var KpMaster = await _aSUTPDbContext.KPs_Master.Where(x => x.Id == BoundleID).FirstOrDefaultAsync();
             var boundlesDataList = await _aSUTPDbContext.Configs.Where(x => x.BoundleID == BoundleID).ToListAsync();
             var requestConfigList = updateBoundlesDataListRequest.СonfigsElems;
+            var requestCpuList = updateBoundlesDataListRequest.CpuElems;
 
             if (KpMaster != null && (KpMaster.Desc != updateBoundlesDataListRequest.Title || KpMaster.Revision != updateBoundlesDataListRequest.Revision))
             {
@@ -211,7 +217,16 @@ namespace ASUTP.API.Controllers
             foreach (var elemFromRequest in requestConfigList)
             {
                 var elemFromDb = boundlesDataList.Find(x => x.Id == elemFromRequest.Id);
-                if (elemFromDb.Count != elemFromRequest.Count)
+                if (elemFromDb != null && elemFromDb.Count != elemFromRequest.Count)
+                {
+                    elemFromDb.Count = elemFromRequest.Count;
+                }
+            }
+
+            foreach (var elemFromRequest in requestCpuList)
+            {
+                var elemFromDb = boundlesDataList.Find(x => x.Id == elemFromRequest.Id);
+                if (elemFromDb != null && elemFromDb.Count != elemFromRequest.Count)
                 {
                     elemFromDb.Count = elemFromRequest.Count;
                 }

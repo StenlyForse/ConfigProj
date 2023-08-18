@@ -26,6 +26,7 @@
         public string? Price_w_taxStr { get; set; }
         public string? Price_wo_taxStr { get; set; }
         public string? TotalStr { get; set; }
+        public int CatalogId { get; set;}
 
     }
 
@@ -41,6 +42,7 @@
         public string? PureNDS { get; set; }
         public string? TotalWithNDS { get; set; }
         public List<BoundlesJoinCatalogElem>? СonfigsElems { get; set; }
+        public List<BoundlesJoinCatalogElem>? CpuElems { get; set; }
     }
 
     // Комбинированный объект для массивов цпу и контроллеров
