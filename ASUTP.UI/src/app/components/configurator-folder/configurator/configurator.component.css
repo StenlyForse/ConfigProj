@@ -27,7 +27,7 @@
 
 .io-table__item {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     gap: 8px;
     margin-bottom: 6px;
 }

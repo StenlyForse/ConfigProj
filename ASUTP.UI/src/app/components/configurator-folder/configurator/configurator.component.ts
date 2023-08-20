@@ -104,7 +104,7 @@ export class ConfiguratorComponent {
 
   onChangeDublicating(event: any): void {
     // Получение по изменению
-    if (event.target.checked)
+    if (event.target.value == "true")
     for (let i = 0; i < this.cpu.length; i++) {
       this.cpuArr[i].count = 2;
     }

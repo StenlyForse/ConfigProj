@@ -54,21 +54,12 @@
 
       <div class="io-table__item">
         <div class="io-table__item-text">Дублирование</div>
-        <select class="form-select io-table__item-input" aria-label="Default select example">
-          <option selected>Нет</option>
-          <option value="1">Да</option>
+        <select class="form-select io-table__item-input" aria-label="Default select example" (change)="onChangeDublicating($event)">
+          <option value = 'false'>Нет</option>
+          <option value = 'true'>Да</option>
         </select>
-<!--        <input class="io-table__item-input" type="number" placeholder="0" aria-label="Reserv" (change)="onChangeReserve($event)">-->
       </div>
 
-<!--      <div class="system-options__title">Резерв, %</div>-->
-<!--      <input class="io-table__item-input" type="number" placeholder="0" aria-label="Reserv"-->
-<!--             (change)="onChangeReserve($event)">-->
-      <div class="form-check system-options__system-options">
-        <input class="form-check-input" type="checkbox" id="dublicating" name="dublicating"
-        (change)="onChangeDublicating($event)"/>
-        <label class="form-check-label" for="dublicating">Дублирование</label>
-      </div>
     </div>
     <form #form1="ngForm">
       <div class="io-table">
