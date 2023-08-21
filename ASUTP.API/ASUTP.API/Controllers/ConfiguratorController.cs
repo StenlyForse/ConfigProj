@@ -23,7 +23,6 @@ namespace ASUTP.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCatalogK3()
         {
-            //var catalogElemList = await _aSUTPDbContext.Catalog.Where(x => outputElem.All(y => x.Name.StartsWith(y))).ToListAsync();
             var controllerElemList = await _aSUTPDbContext.Catalog.Where(x => 
             x.Name.StartsWith("K3.DO") || 
             x.Name.StartsWith("K3.DI") ||
@@ -32,8 +31,6 @@ namespace ASUTP.API.Controllers
 
               var cpuElemList = await _aSUTPDbContext.Catalog.Where(x => 
             x.Name.StartsWith("K3.TM") ||
-            x.Name.StartsWith("K3.PM") ||
-            x.Name.StartsWith("K3.CPU") ||
             x.Name.StartsWith("K3.IM")).ToListAsync();
 
             var elementList = new {cpu = cpuElemList, controllers = controllerElemList };
@@ -52,9 +49,13 @@ namespace ASUTP.API.Controllers
             var maxBoundleId = await _aSUTPDbContext.Configs.MaxAsync(x => x.BoundleID);
             var newBoundId = maxBoundleId + 1;
 
-            // Имеет 2 ConfigArr[] - cpu и controllers
+            // Имеет 2 ConfigArr[] - cpu и controllers + cpu и pm, которые получаем из бд
             var cpu = requestData.cpu;
             var controllers = requestData.controllers;
+
+            var actionResultInvisibleCpuElems = await GetCpuElems(requestData.DublicatingCPU, newBoundId);
+            var okResult = (OkObjectResult)actionResultInvisibleCpuElems.Result;
+            var InvisibleCpuElems = okResult.Value;
 
             foreach (var elem in cpu)
             {
@@ -67,6 +68,7 @@ namespace ASUTP.API.Controllers
 
             await _aSUTPDbContext.Configs.AddRangeAsync(cpu);
             await _aSUTPDbContext.Configs.AddRangeAsync(controllers);
+            await _aSUTPDbContext.Configs.AddRangeAsync((ConfigsElem[])InvisibleCpuElems);
             await _aSUTPDbContext.SaveChangesAsync();
 
             // Добавляем строку в KPs_Master, пока хардкод
@@ -82,6 +84,17 @@ namespace ASUTP.API.Controllers
             await boundlesController.AddRecordToBoundles("Custom boundle #" + newBoundId);
 
             return Ok(newBoundId);
+        }
+
+        private async Task<ActionResult<ConfigsElem[]>> GetCpuElems(bool dublicating, int boundleID)
+        {
+            var PMElem = await _aSUTPDbContext.Catalog.FirstOrDefaultAsync(x =>x.Name.StartsWith("K3.PM"));
+            var CpuElem = await _aSUTPDbContext.Catalog.FirstOrDefaultAsync(x => x.Name.StartsWith("K3.CPU"));
+
+            var pmConfigElem = new ConfigsElem { Id = 0, CatalogId = PMElem.Id, Count = dublicating ? 2 : 1, BoundleID = boundleID };
+            var cpuConfigElem = new ConfigsElem { Id = 0, CatalogId = CpuElem.Id, Count = dublicating ? 2 : 1, BoundleID = boundleID };
+
+            return Ok(new ConfigsElem[] { pmConfigElem, cpuConfigElem });
         }
 
         // Возвращает список сборок

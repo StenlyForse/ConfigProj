@@ -16,6 +16,7 @@ export class ConfiguratorComponent {
   configArr: ConfigElem[] = [];
   cpuArr: ConfigElem[] = [];
   combinedArr: any = {};
+  dublicating: boolean = false;
 
   constructor(private configuratorService: ConfiguratorService, private router: Router) { }
 
@@ -85,7 +86,7 @@ export class ConfiguratorComponent {
         this.cpuArr[i].count = 1;
       }
     }
-    this.combinedArr = {cpu: this.cpuArr, controllers: this.configArr}
+    this.combinedArr = {cpu: this.cpuArr, controllers: this.configArr, dublicatingCPU: this.dublicating}
 
     this.configuratorService.addConfig(this.combinedArr)
     .subscribe({
@@ -107,10 +108,12 @@ export class ConfiguratorComponent {
     if (event.target.value == "true")
     for (let i = 0; i < this.cpu.length; i++) {
       this.cpuArr[i].count = 2;
+      this.dublicating = true;
     }
     else
     for (let i = 0; i < this.cpu.length; i++) {
       this.cpuArr[i].count = 1;
+      this.dublicating = false;
     }
   }
 }

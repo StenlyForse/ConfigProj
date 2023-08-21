@@ -48,6 +48,7 @@
     // Комбинированный объект для массивов цпу и контроллеров
     public class CpuAndControllersData
     {
+        public bool DublicatingCPU { get; set; }
         public ConfigsElem[]? cpu { get; set; }
         public ConfigsElem[]? controllers { get; set; }
     }
