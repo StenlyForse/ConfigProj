@@ -106,14 +106,16 @@ export class ConfiguratorComponent {
   onChangeDublicating(event: any): void {
     // Получение по изменению
     if (event.target.value == "true")
-    for (let i = 0; i < this.cpu.length; i++) {
+    /*for (let i = 0; i < this.cpu.length; i++) {
       this.cpuArr[i].count = 2;
-      this.dublicating = true;
-    }
+      
+    }*/
+    this.dublicating = true;
     else
-    for (let i = 0; i < this.cpu.length; i++) {
+    /*for (let i = 0; i < this.cpu.length; i++) {
       this.cpuArr[i].count = 1;
-      this.dublicating = false;
-    }
+      
+    }*/
+    this.dublicating = false;
   }
 }
