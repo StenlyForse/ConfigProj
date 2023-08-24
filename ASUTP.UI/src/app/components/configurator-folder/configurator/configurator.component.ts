@@ -77,6 +77,9 @@ export class ConfiguratorComponent {
         this.configArr[i].inputCount = 0;
         this.configArr[i].count = 0;
       }
+      /*// Расчет количества модулей на фронте
+      var parse = this.configArr[i].name?.split(".", 5);
+      var moduleCout = Math.ceil(this.configArr[i].count / parseInt(parse![3]));*/
     }
 
     for (let i = 0; i < this.cpu.length; i++) {
