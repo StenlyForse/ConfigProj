@@ -83,6 +83,12 @@
     <!--потом на отдельной странице выбираю BoundleID и по нему вывожу элементы с описанием из каталога и их кол-во-->
     <form #form2="ngForm">
       <div class="io-table">
+        <tr>
+          <th>Название модуля</th>
+          <th>Описание</th>
+          <th>Количество сигналов</th>
+          <th>Количество сигналов с резервом</th>
+        </tr>
         <div class="io-table__item" *ngFor="let catalogElem of controllers let i = index;">
           <div class="io-table__item-text">{{catalogElem.name}} </div>
           <div class="io-table__item-text">{{catalogElem.desc}} </div>
