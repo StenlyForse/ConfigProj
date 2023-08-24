@@ -230,10 +230,11 @@ namespace ASUTP.API.Controllers
             foreach (var elemFromRequest in requestConfigList)
             {
                 var elemFromDb = boundlesDataList.Find(x => x.Id == elemFromRequest.Id);
-                if (elemFromDb != null && elemFromDb.Count != elemFromRequest.Count)
-                {
-                    elemFromDb.Count = elemFromRequest.Count;
-                }
+                //if (elemFromDb != null && elemFromDb.Count != elemFromRequest.Count)
+                //{
+                    // Костыль для изменения количества сигналов от ввода количества модулей, тк при создании в Count записывается количество сигналов - позже сделать пересчет количества сигналов в модули на фронте
+                    elemFromDb.Count = elemFromRequest.ModuleCount * Convert.ToInt32(elemFromRequest.Name.Split('.')[3]);
+                //}
             }
 
             foreach (var elemFromRequest in requestCpuList)
