@@ -1,64 +1,153 @@
+<!--<form class="my-5 mx-5 "  #form1="ngForm" (ngSubmit)="updateBoundlesDataList()">-->
+<!--  <div class="mb-3 me-5 w-50">-->
+<!--    <label for="description" class="form-label">Описание:</label>-->
+<!--    <input [(ngModel)]="configHeader.Title" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="description" aria-describedby="descriptionHelp">-->
+<!--    <div id="descriptionHelp" class="form-text">Напишите краткое описание.</div>-->
+<!--  </div>-->
+<!--  <div class="mb-3 me-5">-->
+<!--    <label for="numberForConfig" class="form-label w-5">Ревизия:</label>-->
+<!--    <input [(ngModel)]="configHeader.Revision" [ngModelOptions]="{standalone: true}" type="number" class="form-control" id="numberForConfig">-->
+<!--  </div>-->
+<!--  <div class="mb-3 d-flex align-items-center">-->
+<!--    <label for="dateOfForConfig" class="form-label me-4">Ревизия:</label>-->
+<!--    <p type="text" class="form-control" id="dateOfForConfig">{{configHeader.DateTime}}<p>-->
+<!--  </div>-->
+<!--&lt;!&ndash;  <div class="edit-config">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="edit-config__description"><span>Описание:</span> <input class="io-table__item-text" [(ngModel)]="configHeader.Title" [ngModelOptions]="{standalone: true}" /></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="edit-config__date">Дата создания: {{configHeader.DateTime}}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="edit-config__version">Ревизия: <input class="io-table__item-text" [(ngModel)]="configHeader.Revision" [ngModelOptions]="{standalone: true}" /></div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--</form>-->
+<div class="mx-5 container mx-auto">
+    <div class="d-flex my-auto mt-5">
+        <a  class="list-group-item py-2 px-3 rounded text-bg-primary" routerLink="/configurator/configList">Вернуться к списку конфигураций</a>  
+    </div>
+  <h1 class="text-center mt-2">Коммерческое предложение</h1>
 
-<form #form1="ngForm" (ngSubmit)="updateBoundlesDataList()">
-<table class="header-table">
-	<tbody>
-		<tr>
-			<th>Описание: <input class="io-table__item-text" [(ngModel)]="configHeader.Title" [ngModelOptions]="{standalone: true}" /></th>
-			<th>Дата создания: {{configHeader.DateTime}}</th>
-      <th>Ревизия: <input class="io-table__item-text" [(ngModel)]="configHeader.Revision" [ngModelOptions]="{standalone: true}" /></th>
-		</tr>
-	</tbody>
-</table>
-</form>
+  <table class="offer-table table table-striped table-bordered table-sm mt-5">
+    <thead>
+      <tr class="table-primary text-center align-middle">
+        <th scope="col">Референс</th>
+        <th scope="col">Описание</th>
+        <th scope="col">Кол.</th>
+        <th scope="col">Валюта</th>
+        <th scope="col">Цена без НДС</th>
+        <th scope="col">Цена с НДС</th>
+        <th scope="col">Вендор</th>
+        <th scope="col">Итого</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let configElem of configElemsArr; let i = index">
+        <td scope="row">{{ configElem.name }}</td>
+        <td>{{ configElem.desc }}</td>
+        <td class="text-center">{{ configElem.moduleCount }}</td>
+        <td>{{ configElem.currency }}</td>
+        <td>{{ configElem.price_wo_taxStr }}</td>
+        <td>{{ configElem.price_w_taxStr }}</td>
+        <td>{{ configElem.vendorName }}</td>
+        <td>{{ configElem.totalStr }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<table class="header-table">
-  <tr>
-    <th>Название модуля</th>
-    <th>Количество модулей</th>
-    <th>Описание</th>
-    <th>Валюта</th>
-    <th>Цена без НДС</th>
-    <th>Цена с НДС</th>
-    <th>Вендор</th>
-    <th>Итого</th>
-  </tr>
-</table>
+  <form #form4="ngForm" (ngSubmit)="updateBoundlesDataList()">
+    <table class="table d-flex justify-content-end">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="d-flex">
+            <div>Итого:</div>
+            <div class="ms-3 text-end fw-normal w-100">
+              {{ configTotals.Total }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="d-flex">
+            <div>НДС:</div>
+            <div class="ms-3 text-end fw-normal w-100">
+              {{ configTotals.PureNDS }}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="d-flex">
+            <div>Итого:</div>
+            <div class="ms-3 text-end fw-normal w-100">
+              {{ configTotals.TotalWithNDS }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-end mb-5">
+        <button class="btn btn-primary" type="submit"> <a href='../../../assets/doc/KPdoc.docx' download></a>Сформировать КП</button>
+    </div>
+
+    
+
+  </form>
+
+</div>
+
 <!--Таблица цпу и других модулей-->
-<form #form2="ngForm" (ngSubmit)="updateBoundlesDataList()">
-  <div class="io-table">
-      <div class="io-table__item" *ngFor="let cpuElem of cpuElemsArr let i = index;">
-          <div class="io-table__item-text">{{cpuElem.name}} </div>
-          <input class="io-table__item-text" [(ngModel)]="cpuElem.count" [ngModelOptions]="{standalone: true}" />
+<!--<form #form2="ngForm" (ngSubmit)="updateBoundlesDataList()">-->
+<!--  <div class="io-table w-100">-->
+<!--      <div class="io-table__item" *ngFor="let cpuElem of cpuElemsArr let i = index;">-->
+<!--          <div class="io-table__item-text">{{cpuElem.name}} </div>-->
+<!--          <input class="io-table__item-text" [(ngModel)]="cpuElem.count" [ngModelOptions]="{standalone: true}" />-->
 
-          <div class="io-table__item-text">{{cpuElem.desc}} </div>
-          <div class="io-table__item-text">{{cpuElem.currency}} </div>
-          <div class="io-table__item-text">{{cpuElem.price_w_taxStr}} </div>
-          <div class="io-table__item-text">{{cpuElem.price_wo_taxStr}} </div>
-          <div class="io-table__item-text">{{cpuElem.vendorName}} </div>
-          <div class="io-table__item-text">{{cpuElem.totalStr}} </div>
+<!--          <div class="io-table__item-text">{{cpuElem.desc}} </div>-->
+<!--          <div class="io-table__item-text">{{cpuElem.currency}} </div>-->
+<!--          <div class="io-table__item-text">{{cpuElem.price_w_taxStr}} </div>-->
+<!--          <div class="io-table__item-text">{{cpuElem.price_wo_taxStr}} </div>-->
+<!--          <div class="io-table__item-text">{{cpuElem.vendorName}} </div>-->
+<!--          <div class="io-table__item-text">{{cpuElem.totalStr}} </div>-->
 
-      </div>
-  </div>
+<!--      </div>-->
+<!--  </div>-->
 
-</form>
+<!--</form>-->
 
-<div style="width:100%;height:30px;border:1px solid #000;text-align:center; background-color: #F7F7F8;margin-top:10px;">ПЛК</div>
+<!--<div style="width:100%;height:30px;border:1px solid #000;text-align:center; background-color: #F7F7F8;margin-top:10px;">ПЛК</div>-->
 
-<table class="header-table">
-  <tr>
-    <th>Название модуля</th>
-    <th>Количество модулей</th>
-    <th>Количество сигналов</th>
-    <th>Описание</th>
-    <th>Валюта</th>
-    <th>Цена без НДС</th>
-    <th>Цена с НДС</th>
-    <th>Вендор</th>
-    <th>Итого</th>
-  </tr>
-</table>
+<!--<table class="table ">-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th scope="col">Название модуля</th>-->
+<!--      <th scope="col">Количество модулей</th>-->
+<!--      <th scope="col">Количество сигналов</th>-->
+<!--      <th>Описание</th>-->
+<!--      <th>Валюта</th>-->
+<!--      <th>Цена без НДС</th>-->
+<!--      <th>Цена с НДС</th>-->
+<!--      <th>Вендор</th>-->
+<!--      <th>Итого</th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--    <tr>-->
+<!--      <th scope="row">1</th>-->
+<!--      <td>Mark</td>-->
+<!--      <td>Otto</td>-->
+<!--      <td>@mdo</td>-->
+<!--      <td>@mdo</td>-->
+<!--      <td>@mdo</td>-->
+<!--      <td>@mdo</td>-->
+<!--      <td>@mdo</td>-->
+<!--      <td>@mdo</td>-->
+<!--      <td>@mdo</td>-->
+<!--    </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
 
-<form #form3="ngForm" (ngSubmit)="updateBoundlesDataList()">
+<!-- <form #form3="ngForm" (ngSubmit)="updateBoundlesDataList()">
   <div class="io-table">
       <div class="io-table__item" *ngFor="let configElem of configElemsArr let i = index;">
           <div class="io-table__item-text">{{configElem.name}} </div>
@@ -75,23 +164,23 @@
       </div>
       <button type="submit" class="btn btn-primary">Изменить</button>
   </div>
+</form> -->
 
-</form>
+<!--<form #form4="ngForm" (ngSubmit)="updateBoundlesDataList()">-->
+<!--  <table class="header-table">-->
+<!--    <tbody>-->
+<!--      <tr>-->
+<!--        <th>Итого: {{configTotals.Total}}</th>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th>НДС: {{configTotals.PureNDS}}</th>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th>Итого с НДС: {{configTotals.TotalWithNDS}}</th>-->
+<!--      </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--  </form>-->
+<!-- <button type="submit" class="btn btn-primary" (click)="download()">Сформировать КП</button>-->
 
-<form #form4="ngForm" (ngSubmit)="updateBoundlesDataList()">
-  <table class="header-table">
-    <tbody>
-      <tr>
-        <th>Итого: {{configTotals.Total}}</th>
-      </tr>
-      <tr>
-        <th>НДС: {{configTotals.PureNDS}}</th>
-      </tr>
-      <tr>
-        <th>Итого с НДС: {{configTotals.TotalWithNDS}}</th>
-      </tr>
-    </tbody>
-  </table>
-  </form>
-<!--<button type="submit" class="btn btn-primary" (click)="download()">Сформировать КП</button>-->
-<button type="submit"> <a href='../../../assets/doc/KPdoc.docx' download>Сформировать КП</a>  </button>
+<!-- <button type="submit"> <a href='../../../assets/doc/KPdoc.docx' download>Сформировать КП</a>  </button>  -->
