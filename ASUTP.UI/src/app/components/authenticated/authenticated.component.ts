@@ -24,7 +24,7 @@ constructor(private authService: AuthService, private router: Router) {
  }
   ngOnInit(): void {
     if (localStorage.getItem("token"))
-    this.router.navigate(['catalog'])
+    this.router.navigate(['configurator'])
   }
 
   authUser() {
@@ -32,7 +32,7 @@ constructor(private authService: AuthService, private router: Router) {
     .subscribe({
       next: (catalogElem) => {
         //alert('Succesfully added');
-        this.router.navigate(['catalog'])
+        this.router.navigate(['configurator'])
       },
       error: (response) => {
         console.log(response)
