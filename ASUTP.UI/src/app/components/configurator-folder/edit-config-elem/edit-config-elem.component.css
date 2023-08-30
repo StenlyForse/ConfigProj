@@ -1,32 +1,122 @@
-.io-table, table, form{
-    margin-top: 45px;
+table{
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
 }
 
-.io-table__item, th, form {
-    display: flex;
-    gap: 8px;
-    height: fit-content;
-    margin-bottom: 6px;
+table tr {
+  padding: .15em;
 }
 
-.io-table__item-text, tr, th, input{
-    background-color: #F7F7F8;
-    min-width: 200px;
-    height: fit;
-    display: flex;
-    align-items: center;
-    padding: 0 15px;
-}
-
-.io-table__item-qty{
-    width: 85px;
-    background-color: #E9E1F9;
-    border: none;
+thead tr{
+  /*background-color: rgb(41, 63, 63);*/
 }
 
 
-@media (min-width: 1200px) {
-    .config-page{
-        padding-left: 270px;
-    }
+
+tbody tr:nth-child(even){
+  /*background-color: rgba(190, 232, 219, 0.754);*/
 }
+
+table th,
+table td {
+  font-size: 1em;
+  padding: 1em;
+  text-align: center;
+}
+
+thead th {
+  /*color: aquamarine;*/
+  font-size: 1.15em;
+}
+
+@media (max-width:1200px){
+
+  table th, table td{
+    padding: 0.5em;
+  }
+
+  .table th, table td{
+    font-size: 1em;
+  }
+
+}
+
+@media (max-width:1000px){
+
+  table th, table td{
+    padding: 0.2em;
+  }
+
+  .table th, table td{
+    font-size: 0.8em;
+  }
+
+}
+
+@media (max-width:770px) {
+  table{
+    /*border:  1px solid rgb(47, 84, 84);*/
+  }
+  table thead tr {
+    display: none;
+  }
+  table tr {
+    display: block;
+  }
+  table th, table td{
+    padding: 0.5em;
+  }
+  table td{
+    text-align:right;
+    display: block;
+    font-size: 0.9em;
+  }
+  table td::before{
+    content: attr(data-title) ": ";
+    float: left;
+    font-weight: bold;
+  }
+  tbody tr:nth-child(even){
+    /*background-color: rgb(23, 114, 245);*/
+    /*color: #f1f1f1;*/
+  }
+
+}
+
+/*.edit-config {*/
+/*  display: flex;*/
+
+/*}*/
+/*.io-table, table, form{*/
+/*    margin-top: 45px;*/
+/*}*/
+
+/*.io-table__item, th, form {*/
+/*    display: flex;*/
+/*    gap: 8px;*/
+/*    height: fit-content;*/
+/*    margin-bottom: 6px;*/
+/*}*/
+
+/*.io-table__item-text, tr, th, input{*/
+/*    background-color: #F7F7F8;*/
+/*    min-width: 200px;*/
+/*    height: fit;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    padding: 0 15px;*/
+/*}*/
+
+/*.io-table__item-qty{*/
+/*    width: 85px;*/
+/*    background-color: #E9E1F9;*/
+/*    border: none;*/
+/*}*/
+
+
+/*@media (min-width: 1200px) {*/
+/*    .config-page{*/
+/*        padding-left: 270px;*/
+/*    }*/
+/*}*/
