@@ -18,7 +18,7 @@
 <!--&lt;!&ndash;        <div class="edit-config__version">Ревизия: <input class="io-table__item-text" [(ngModel)]="configHeader.Revision" [ngModelOptions]="{standalone: true}" /></div>&ndash;&gt;-->
 <!--&lt;!&ndash;  </div>&ndash;&gt;-->
 <!--</form>-->
-<div class="mx-5 container mx-auto">
+<div class="mx-2 container mx-auto">
     <div class="d-flex my-auto mt-5">
         <a  class="list-group-item py-2 px-3 rounded text-bg-primary" routerLink="/configurator/configList">Вернуться к списку конфигураций</a>
     </div>
@@ -39,14 +39,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let configElem of configElemsArr; let i = index">
-        <td scope="row">{{ configElem.name }}</td>
-        <td>{{ configElem.desc }}</td>
-        <td class="text-center">{{ configElem.moduleCount }}</td>
-        <td>{{ configElem.currency }}</td>
-        <td>{{ configElem.price_wo_taxStr }}</td>
-        <td>{{ configElem.price_w_taxStr }}</td>
-        <td>{{ configElem.vendorName }}</td>
-        <td>{{ configElem.totalStr }}</td>
+        <td data-title="Референс">{{ configElem.name }}</td>
+        <td data-title="Описание">{{ configElem.desc }}</td>
+        <td data-title="Кол-во" class="text-center">{{ configElem.moduleCount }}</td>
+        <td data-title="Валюта">{{ configElem.currency }}</td>
+        <td data-title="Цена без НДС">{{ configElem.price_wo_taxStr }}</td>
+        <td data-title="Цена с НДС">{{ configElem.price_w_taxStr }}</td>
+        <td data-title="Вендор">{{ configElem.vendorName }}</td>
+        <td data-title="Итого">{{ configElem.totalStr }}</td>
       </tr>
     </tbody>
   </table>

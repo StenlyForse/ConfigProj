@@ -1,3 +1,89 @@
+table{
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
+}
+
+table tr {
+  padding: .15em;
+}
+
+thead tr{
+  /*background-color: rgb(41, 63, 63);*/
+}
+
+
+
+tbody tr:nth-child(even){
+  /*background-color: rgba(190, 232, 219, 0.754);*/
+}
+
+table th,
+table td {
+  font-size: 1em;
+  padding: 1em;
+  text-align: center;
+}
+
+thead th {
+  /*color: aquamarine;*/
+  font-size: 1.15em;
+}
+
+@media (max-width:1200px){
+
+  table th, table td{
+    padding: 0.5em;
+  }
+
+  .table th, table td{
+    font-size: 1em;
+  }
+
+}
+
+@media (max-width:1000px){
+
+  table th, table td{
+    padding: 0.2em;
+  }
+
+  .table th, table td{
+    font-size: 0.8em;
+  }
+
+}
+
+@media (max-width:770px) {
+  table{
+    /*border:  1px solid rgb(47, 84, 84);*/
+  }
+  table thead tr {
+    display: none;
+  }
+  table tr {
+    display: block;
+  }
+  table th, table td{
+    padding: 0.5em;
+  }
+  table td{
+    text-align:right;
+    display: block;
+    font-size: 0.9em;
+  }
+  table td::before{
+    content: attr(data-title) ": ";
+    float: left;
+    font-weight: bold;
+  }
+  tbody tr:nth-child(even){
+    /*background-color: rgb(23, 114, 245);*/
+    /*color: #f1f1f1;*/
+  }
+
+}
+
 /*.edit-config {*/
 /*  display: flex;*/
 
