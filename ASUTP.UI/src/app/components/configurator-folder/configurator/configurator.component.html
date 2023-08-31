@@ -1,104 +1,176 @@
 <app-sidebar></app-sidebar>
-<div class="budget-page">
-  <div class="container">
+<div class="config-wrapper">
+  <div class="budget-page">
+    <!-- <div class="container"> -->
     <h1 class="budget__title">Новый расчет</h1>
 
     <div class="control-room">
       <div class="station">
-        <div class="io-table__item">
-          <div class="io-table__item-text">АРМ инженера АСУТП</div>
-          <input class="io-table__item-input" type="number" placeholder="0" aria-label="First name">
+        <div class="input__item">
+          <div class="input__item-text">АРМ инженера АСУТП</div>
+          <input
+            class="input__item-input"
+            type="number"
+            placeholder="0"
+            aria-label="First name"
+          />
         </div>
-        <!--                <img src="../../../assets/img/station.svg" alt="es-station">-->
       </div>
       <div class="station">
-        <div class="io-table__item">
-          <div class="io-table__item-text">АРМ оператора АСУТП</div>
-          <input class="io-table__item-input" type="number" placeholder="0" aria-label="First name">
+        <div class="input__item">
+          <div class="input__item-text">АРМ оператора АСУТП</div>
+          <input
+            class="input__item-input"
+            type="number"
+            placeholder="0"
+            aria-label="First name"
+          />
         </div>
-        <!--                <img src="../../../assets/img/station.svg" alt="os-station">-->
       </div>
       <div>
-        <img class="station-img" src="./assets/img/station.svg" alt="os-station">
+        <img
+          class="station-img"
+          src="./assets/img/station.svg"
+          alt="os-station"
+        />
       </div>
     </div>
 
-
-    <div class="network">
-      Терминальная шина
-    </div>
+    <div class="network">Терминальная шина</div>
 
     <div class="server">
       <div class="server-workstation">
-        <img src="./assets/img/server-station.svg" alt="server-workstation">
+        <img src="./assets/img/server-station.svg" alt="server-workstation" />
       </div>
-      <div class="io-table__item">
-        <div class="io-table__item-text">Сервер АСУТП</div>
-        <input class="io-table__item-input" type="number" placeholder="0" aria-label="First name">
+      <div class="input__item">
+        <div class="input__item-text">Сервер АСУТП</div>
+        <input
+          class="input__item-input"
+          type="number"
+          placeholder="0"
+          aria-label="First name"
+        />
       </div>
     </div>
 
-    <div class="network">
-      Системная шина
-    </div>
+    <div class="network">Системная шина</div>
 
     <div class="plc">
-      <img src="./assets/img/PLC.svg" alt="PLC">
+      <img src="./assets/img/PLC.svg" alt="PLC" />
     </div>
 
     <div class="system-options mt-5">
-      <div class="io-table__item">
-        <div class="io-table__item-text ">Резерв, %</div>
-        <input class="io-table__item-input" type="number" placeholder="0" aria-label="Reserv" (change)="onChangeReserve($event)">
+      <div class="input__item">
+        <div class="input__item-text">Резерв, %</div>
+        <input
+          class="input__item-input"
+          type="number"
+          placeholder="0"
+          aria-label="Reserv"
+          (change)="onChangeReserve($event)"
+        />
       </div>
 
-      <div class="io-table__item">
-        <div class="io-table__item-text">Дублирование</div>
-        <select class="form-select io-table__item-input" aria-label="Default select example" (change)="onChangeDublicating($event)">
-          <option value = 'false'>Нет</option>
-          <option value = 'true'>Да</option>
+      <div class="input__item select">
+        <div class="input__item-text">Дублирование</div>
+        <select
+          class="form-select input__item-input iput-select "
+          aria-label="Default select example"
+          (change)="onChangeDublicating($event)"
+        >
+          <option value="false">Нет</option>
+          <option value="true">Да</option>
         </select>
       </div>
-
     </div>
 
     <form #form1="ngForm">
-      <table class="io-table">
-        <tr>
+      <table class="table table-striped table-bordered table-sm mt-5">
+        <thead>
+          <tr class="table-primary">
             <th>Название модуля</th>
             <th>Описание</th>
             <th>Количество модулей</th>
-  
+            <th>Количество сигналов с резервом</th>
           </tr>
-        <tr class="io-table__item" *ngFor="let cpuElem of cpu let i = index;">
-          <td class="io-table__item-text">{{cpuElem.name}} </td>
-          <td class="io-table__item-text">{{cpuElem.desc}} </td>
-          <input class="io-table__item-input" type="number" placeholder="0" aria-label="First name" name="qty_{{i}}"
-                 [(ngModel)]="cpuArr[i].count"
-                 [ngModelOptions]="{standalone: true}" (blur)="onInputBlur(i)">
-        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cpuElem of cpu; let i = index">
+            <td data-title="Артикул">{{ cpuElem.name }}</td>
+            <td data-title="">{{ cpuElem.desc }}</td>
+            <td data-title="кол-во">
+              <input
+                class="input__item-input"
+                type="number"
+                placeholder="0"
+                aria-label="First name"
+                name="qty_{{ i }}"
+                [(ngModel)]="cpuArr[i].count"
+                [ngModelOptions]="{ standalone: true }"
+                (blur)="onInputBlur(i)"
+              />
+            </td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let catalogElem of controllers; let i = index">
+            <td data-title="Артикул">{{ catalogElem.name }}</td>
+            <td data-title="">{{ catalogElem.desc }}</td>
+            <td data-title="кол-во">
+              <input
+                class="input__item-input"
+                type="number"
+                placeholder="0"
+                aria-label="First name"
+                name="qty_{{ i }}"
+                [(ngModel)]="configArr[i].inputCount"
+                [ngModelOptions]="{ standalone: true }"
+                (blur)="onInputBlur(i)"
+              />
+            </td>
+            <td data-title="с резервом">{{ configArr[i].count }}</td>
+          </tr>
+        </tbody>
       </table>
     </form>
+    <div class="button">
+      <button type="submit" class="btn btn-primary" (click)="addConfig()">
+        Создать
+      </button>
+    </div>
+
     <!--План: инпутом собираю все цифры, отправляю в бек с id и названием, там вычленяю делитель, делю и записываю в таблицу Configs с catalogID и в inputCount кол-во штук-->
     <!--потом на отдельной странице выбираю BoundleID и по нему вывожу элементы с описанием из каталога и их кол-во-->
-    <form #form2="ngForm">
-      <div class="io-table">
+    <!-- <form #form2="ngForm">
+      <div class="input">
         <tr>
           <th>Название модуля</th>
           <th>Описание</th>
           <th>Количество сигналов</th>
           <th>Количество сигналов с резервом</th>
         </tr>
-        <div class="io-table__item" *ngFor="let catalogElem of controllers let i = index;">
-          <div class="io-table__item-text">{{catalogElem.name}} </div>
-          <div class="io-table__item-text">{{catalogElem.desc}} </div>
-          <input class="io-table__item-input" type="number" placeholder="0" aria-label="First name" name="qty_{{i}}"
-                 [(ngModel)]="configArr[i].inputCount"
-                 [ngModelOptions]="{standalone: true}" (blur)="onInputBlur(i)">
-          <div class="io-table__item-text">{{configArr[i].count}} </div>
+        <div
+          class="input__item"
+          *ngFor="let catalogElem of controllers; let i = index"
+        >
+          <div class="input__item-text">{{ catalogElem.name }}</div>
+          <div class="input__item-text">{{ catalogElem.desc }}</div>
+          <input
+            class="input__item-input"
+            type="number"
+            placeholder="0"
+            aria-label="First name"
+            name="qty_{{ i }}"
+            [(ngModel)]="configArr[i].inputCount"
+            [ngModelOptions]="{ standalone: true }"
+            (blur)="onInputBlur(i)"
+          />
+          <div class="input__item-text">{{ configArr[i].count }}</div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary" (click)="addConfig()">Создать</button>
-    </form>
+      <button type="submit" class="btn btn-primary" (click)="addConfig()">
+        Создать
+      </button>
+    </form> -->
+    <!-- </div> -->
   </div>
 </div>
