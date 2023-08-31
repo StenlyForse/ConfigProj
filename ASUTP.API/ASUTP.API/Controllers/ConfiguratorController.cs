@@ -157,10 +157,10 @@ namespace ASUTP.API.Controllers
                                                                                                  y.TotalStr = decimal.Round((decimal)((decimal)y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero).ToString("0.00") + " ₽";
             });
 
-            var cpuList = boundlesJoinCatalogList.Where(x => x.CatalogId >= 55 && x.CatalogId <= 58).ToList();
-            boundlesJoinCatalogList.RemoveAll(x => x.CatalogId >= 55 && x.CatalogId <= 58);
+            //var cpuList = boundlesJoinCatalogList.Where(x => x.CatalogId >= 55 && x.CatalogId <= 58).ToList();
+            //boundlesJoinCatalogList.RemoveAll(x => x.CatalogId >= 55 && x.CatalogId <= 58);
 
-            var total = boundlesJoinCatalogList.Select(x => x.Total).Sum() + cpuList.Select(x => x.Total).Sum();
+            var total = boundlesJoinCatalogList.Select(x => x.Total).Sum() /*+ cpuList.Select(x => x.Total).Sum()*/;
             var pureNDS = total * (decimal)0.2;
             var totalWithNDS = total + pureNDS;
 
@@ -174,7 +174,7 @@ namespace ASUTP.API.Controllers
                 DateTime = KpMaster.DateTime.ToString("dd.MM.yyyy hh:mm"),
                 Revision = KpMaster.Revision,
                 СonfigsElems = boundlesJoinCatalogList,
-                CpuElems = cpuList,
+                //CpuElems = cpuList,
                 Total = totalStr,
                 PureNDS = pureNDSStr,
                 TotalWithNDS = totalWithNDSStr
