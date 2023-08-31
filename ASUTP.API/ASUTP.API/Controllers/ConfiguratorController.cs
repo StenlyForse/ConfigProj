@@ -33,7 +33,13 @@ namespace ASUTP.API.Controllers
             x.Name.StartsWith("K3.TM") ||
             x.Name.StartsWith("K3.IM")).ToListAsync();
 
-            var elementList = new {cpu = cpuElemList, controllers = controllerElemList };
+            int maxBoundlesId = await _aSUTPDbContext.Boundles.MaxAsync(x => x.Id);
+            int newId = maxBoundlesId + 1;
+            string description = "Стандартное описание № " + newId;
+
+            var curDateTime = DateTime.Now.ToString("dd.MM.yyyy hh:mm");
+
+            var elementList = new {cpu = cpuElemList, controllers = controllerElemList, description = description, datetime = curDateTime, revision = 1 };
 
             return Ok(elementList);
         }
