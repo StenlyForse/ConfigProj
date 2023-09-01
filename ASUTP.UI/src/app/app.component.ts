@@ -16,21 +16,21 @@ export class AppComponent {
 
   }
 
-  ngOnInit(): void {}
+//   ngOnInit(): void {}
   
-  isLoginPage(): boolean {
-    return this.router.url === '/auth';
-  }
+//   isLoginPage(): boolean {
+//     return this.router.url === '/auth';
+//   }
 
-  UnloginUser(){
-    var amo = localStorage.getItem('token');
-    if (amo) {
-      alert('Вы успешно разлогинились');
-      localStorage.removeItem('token');
-      this.router.navigate(['/auth']);
-      this.router.navigate(['auth']);
-    }
-    else
-      alert('Not');
- }
+//   UnloginUser(){
+//     var amo = localStorage.getItem('token');
+//     if (amo) {
+//       alert('Вы успешно разлогинились');
+//       localStorage.removeItem('token');
+//       this.router.navigate(['/auth']);
+//       this.router.navigate(['auth']);
+//     }
+//     else
+//       alert('Not');
+//  }
 }
