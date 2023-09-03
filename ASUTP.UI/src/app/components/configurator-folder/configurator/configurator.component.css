@@ -11,7 +11,7 @@
 }
 
 .budget__title{
-    text-align: center;    
+    text-align: center;
     text-transform: uppercase;
     margin-bottom: 35px;
 }
@@ -50,13 +50,13 @@
     justify-content: flex-start;
     gap: 8px;
     margin-bottom: 6px;
-} 
+}
 
  .input__item-text{
     background-color: #F2F2F2;
-    min-width: 200px;
+    min-width: 150px;
     display: flex;
-    align-items: center;    
+    align-items: center;
     border: solid 1px #aaa9a9;
     border-radius: 8px;
     text-align: center;
@@ -64,13 +64,23 @@
 }
 
 .input__item-input{
-    max-width: 45px;
+    max-width: 55px;
     background-color: #F2F2F2;
     border: solid 1px #aaa9a9;
     border-radius: 8px;
     text-align: center;
     padding: 5px 10px;
-} 
+}
+
+input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+               -webkit-appearance: none;
+                margin: 0;
+        }
+ 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
 
 .iput-select{
     text-align: left;
@@ -102,7 +112,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 
 }
 
@@ -142,38 +151,38 @@ thead th {
 
 
 
-@media (max-width:1200px){   
+@media (max-width:1200px){
     .config-wrapper{
          margin-left: 0;
          padding: 40px 35px;
     }
 
-       
+
 
     table th, table td{
       padding: 0.5em;
     }
-  
+
     .table th, table td{
       font-size: 1em;
     }
-  
+
   }
-  
+
   @media (max-width:1000px){
-  
+
     table th, table td{
       padding: 0.2em;
     }
-  
+
     .table th, table td{
       font-size: 0.8em;
     }
-  
+
   }
-  
+
   @media (max-width:770px) {
-  
+
     table thead tr {
       display: none;
     }
@@ -213,10 +222,10 @@ thead th {
     display: flex;
     justify-content: center
    }
-  
-  }
-  
 
- 
+  }
+
+
+
 
 
