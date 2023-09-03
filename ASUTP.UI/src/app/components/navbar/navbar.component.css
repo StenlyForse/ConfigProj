@@ -1,0 +1,25 @@
+.navbar{
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  z-index: 1001
+;
+}
+
+.navbar-nav{
+  display: none;
+}
+
+.exit-btn{
+  justify-content: end;
+}
+
+@media (max-width: 1200px) {
+  .navbar-nav{
+    display: block;
+  }
+
+  .exit-btn{
+    justify-content: start;
+    padding-top: 15px;
+  }
+}
+

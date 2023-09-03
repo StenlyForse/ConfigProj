@@ -16,8 +16,8 @@ import { ConfiguratorComponent } from './components/configurator-folder/configur
 import { SidebarComponent } from './components/configurator-folder/sidebar/sidebar.component';
 import { ConfigsListComponent } from './components/configurator-folder/configs-list/configs-list.component';
 import { EditConfigElemComponent } from './components/configurator-folder/edit-config-elem/edit-config-elem.component';
-
 import { DataTablesModule } from "angular-datatables";
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { DataTablesModule } from "angular-datatables";
     SidebarComponent,
     ConfigsListComponent,
     EditConfigElemComponent,
+    NavbarComponent,    
   ],
   imports: [
     BrowserModule,

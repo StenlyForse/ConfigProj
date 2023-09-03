@@ -21,7 +21,7 @@
     min-height: 50px;
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1200px) {
     .sidebar-fixed{
         display: none;
     }
