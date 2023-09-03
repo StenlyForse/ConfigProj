@@ -12,7 +12,7 @@
   justify-content: end;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .navbar-nav{
     display: block;
   }
@@ -22,3 +22,4 @@
     padding-top: 15px;
   }
 }
+
