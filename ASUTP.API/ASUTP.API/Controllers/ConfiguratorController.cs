@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ASUTP.API.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace ASUTP.API.Controllers
 {
@@ -132,6 +133,8 @@ namespace ASUTP.API.Controllers
         [Route("configList/{BoundleID:int}")]
         public async Task<IActionResult> GetConfigByBoundleId(/*[FromQuery(Name = "BoundleID")]*/[FromRoute] int BoundleID)
         {
+            var nfi = (NumberFormatInfo)CultureInfo.InvariantCulture.NumberFormat.Clone();
+            nfi.NumberGroupSeparator = " ";
 
             var KpMaster = await _aSUTPDbContext.KPs_Master.Where(x => x.Id == BoundleID).FirstOrDefaultAsync();
 
@@ -148,19 +151,19 @@ namespace ASUTP.API.Controllers
                                                                            ModuleCount = CalcModuleCount(cat.Name, con.Count),
                                                                            Desc = cat.Desc,
                                                                            Currency = cat.Currency,
-                                                                           Price_w_taxStr = cat.Price_w_tax.Value.ToString("0.00") + " ₽",
-                                                                           Price_wo_taxStr = cat.Price_wo_tax.Value.ToString("0.00") + " ₽",
+                                                                           Price_w_taxStr = cat.Price_w_tax.Value.ToString("#,0.00", nfi),
+                                                                           Price_wo_taxStr = cat.Price_wo_tax.Value.ToString("#,0.00", nfi),
                                                                            Price_wo_tax = cat.Price_wo_tax,
                                                                            Price_w_tax = cat.Price_w_tax,
                                                                            VendorName = cat.VendorName,
                                                                            Total = decimal.Round((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax), 2, MidpointRounding.AwayFromZero),
-                                                                           TotalStr = ((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax).Value).ToString("0.00") + " ₽"
+                                                                           TotalStr = ((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax).Value).ToString("#,0.00", nfi)
                                                                        }).Where(x => x.BoundleID == BoundleID).ToListAsync();
 
             // Костыль для добавления элементам цпу стоимости и количества модулей - позже перенести цпу в отдельный архив
             boundlesJoinCatalogList.Where(x => x.CatalogId >= 55 && x.CatalogId <= 58).ToList().ForEach(y => { y.ModuleCount = y.Count; 
                                                                                                  y.Total = decimal.Round((decimal)(y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero);
-                                                                                                 y.TotalStr = decimal.Round((decimal)((decimal)y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero).ToString("0.00") + " ₽";
+                                                                                                 y.TotalStr = decimal.Round((decimal)((decimal)y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero).ToString("#,0.00", nfi);
             });
 
             //var cpuList = boundlesJoinCatalogList.Where(x => x.CatalogId >= 55 && x.CatalogId <= 58).ToList();
@@ -170,9 +173,9 @@ namespace ASUTP.API.Controllers
             var pureNDS = total * (decimal)0.2;
             var totalWithNDS = total + pureNDS;
 
-            string totalStr = $"{total.Value.ToString("0.00")} ₽";
-            string pureNDSStr = $"{pureNDS.Value.ToString("0.00")} ₽";
-            string totalWithNDSStr = $"{totalWithNDS.Value.ToString("0.00")} ₽";
+            string totalStr = $"{total.Value.ToString("#,0.00", nfi)}";
+            string pureNDSStr = $"{pureNDS.Value.ToString("#,0.00", nfi)}";
+            string totalWithNDSStr = $"{totalWithNDS.Value.ToString("#,0.00", nfi)}";
 
             return Ok(new ConfigsData
             {
