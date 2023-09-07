@@ -58,4 +58,37 @@ export class EditConfigElemComponent {
       }
     })
   }
+
+  PrintTable() {
+    
+    var element = document.getElementById("KPtable")?.outerHTML;
+    const html = '<table><tr><th>Header 1</th><th>Header 2</th></tr><tr><td>Data 1</td><td>Data 2</td></tr></table>';
+  
+    var style = "<style>";
+    style = style + "table {border: solid 1px #bacbe6; border-collapse: collapse;margin: 0;width: 100%;}";
+    style = style + "table tr {padding: .15em;}";
+    style = style + "thead {display: table-row-group;}"; // Отображение шапки только на первой странице
+    style = style + "thead tr {align-items: center;vertical-align: middle; background-color: #cfe2ff; }";
+
+    style = style + "tr:nth-child(even) {background-color: #f2f2f2;}";
+    style = style + "table th,table td {font-size: 1em;padding: 1em;text-align: center; border: solid 1px #bacbe6;}";
+    style = style + "</style>";
+
+    var win = window.open('', '', 'height=1200,width=1200');
+
+    win?.document.write('<html><head>');
+    win?.document.write('<title>Новое КП</title>');   // <title> FOR PDF HEADER.
+    win?.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+    win?.document.write('</head>');
+    win?.document.write('<body>');
+    win?.document.write(element!);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+    win?.document.write('</body></html>');
+    if (win?.document.title != undefined){
+      win.document.title = 'Новое КП';
+    }
+
+    win?.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+    win?.print();    // PRINT THE CONTENTS.
+  }
 }

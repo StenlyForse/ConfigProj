@@ -37,7 +37,7 @@
   </div>
   <h1 class="text-center mt-2">Коммерческое предложение</h1>
 
-  <table class="offer-table table table-striped table-bordered table-sm mt-5">
+  <table id="KPtable" class="offer-table table table-striped table-bordered table-sm mt-5">
     <thead>
       <tr class="table-primary">
         <th scope="col">Референс</th>
@@ -103,8 +103,9 @@
     </table>
   </form>
   <div class="d-flex justify-content-end my-4">
-    <button class="btn btn-primary" type="submit">
-      <a href="../../../assets/doc/KPdoc.docx" download>Сформировать КП</a>
+    <button class="btn btn-primary" type="submit" (click)="PrintTable()">
+      <!--<a href="../../../assets/doc/KPdoc.docx" download>Сформировать КП</a>-->
+      Сформировать КП
     </button>
   </div>
 </div>
