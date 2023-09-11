@@ -53,7 +53,7 @@ namespace ASUTP.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddConfig([FromBody] CpuAndControllersData requestData)
         {
-            var maxBoundleId = await _aSUTPDbContext.Configs.MaxAsync(x => x.BoundleID);
+            var maxBoundleId = await _aSUTPDbContext.Boundles.MaxAsync(x => x.Id);
             var newBoundId = maxBoundleId + 1;
 
             // Имеет 2 ConfigArr[] - cpu и controllers + cpu и pm, которые получаем из бд

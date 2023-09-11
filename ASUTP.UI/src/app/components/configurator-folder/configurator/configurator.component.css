@@ -54,7 +54,7 @@
 
  .input__item-text{
     background-color: #F2F2F2;
-    min-width: 150px;
+    min-width: 160px;
     display: flex;
     align-items: center;
     border: solid 1px #aaa9a9;
@@ -224,6 +224,40 @@ thead th {
    }
 
   }
+
+
+  .config-column {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 25px;    
+}
+
+
+
+.config__title{
+    margin-right: 10px;    
+}
+
+.config-info-title {
+    margin-right: 15px;
+    font-weight: 500;
+}
+
+
+.config-info-text input{
+    background-color: #F2F2F2;
+    border: solid 1px #aaa9a9;
+    border-radius: 8px;
+    text-align: center;
+    padding: 5px 10px;
+}
+
+.version{
+    max-width: 35px;
+}
+
 
 
 
