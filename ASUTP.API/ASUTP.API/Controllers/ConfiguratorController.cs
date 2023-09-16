@@ -25,14 +25,14 @@ namespace ASUTP.API.Controllers
         public async Task<IActionResult> GetCatalogK3()
         {
             var controllerElemList = await _aSUTPDbContext.Catalog.Where(x => 
-            x.Name.StartsWith("K3.DO") || 
-            x.Name.StartsWith("K3.DI") ||
-            x.Name.StartsWith("K3.AO") ||
-            x.Name.StartsWith("K3.AI")).ToListAsync();
+            x.Reference.StartsWith("K3.DO") || 
+            x.Reference.StartsWith("K3.DI") ||
+            x.Reference.StartsWith("K3.AO") ||
+            x.Reference.StartsWith("K3.AI")).ToListAsync();
 
               var cpuElemList = await _aSUTPDbContext.Catalog.Where(x => 
-            x.Name.StartsWith("K3.TM") ||
-            x.Name.StartsWith("K3.IM")).ToListAsync();
+            x.Reference.StartsWith("K3.TM") ||
+            x.Reference.StartsWith("K3.IM")).ToListAsync();
 
             int maxBoundlesId = await _aSUTPDbContext.Boundles.MaxAsync(x => x.Id);
             int newId = maxBoundlesId + 1;
@@ -53,7 +53,7 @@ namespace ASUTP.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddConfig([FromBody] CpuAndControllersData requestData)
         {
-            var maxBoundleId = await _aSUTPDbContext.Configs.MaxAsync(x => x.BoundleID);
+            var maxBoundleId = await _aSUTPDbContext.Boundles.MaxAsync(x => x.Id);
             var newBoundId = maxBoundleId + 1;
 
             // Имеет 2 ConfigArr[] - cpu и controllers + cpu и pm, которые получаем из бд
@@ -95,8 +95,8 @@ namespace ASUTP.API.Controllers
 
         private async Task<ActionResult<ConfigsElem[]>> GetCpuElems(bool dublicating, int boundleID)
         {
-            var PMElem = await _aSUTPDbContext.Catalog.FirstOrDefaultAsync(x =>x.Name.StartsWith("K3.PM"));
-            var CpuElem = await _aSUTPDbContext.Catalog.FirstOrDefaultAsync(x => x.Name.StartsWith("K3.CPU"));
+            var PMElem = await _aSUTPDbContext.Catalog.FirstOrDefaultAsync(x =>x.Reference.StartsWith("K3.PM"));
+            var CpuElem = await _aSUTPDbContext.Catalog.FirstOrDefaultAsync(x => x.Reference.StartsWith("K3.CPU"));
 
             var pmConfigElem = new ConfigsElem { Id = 0, CatalogId = PMElem.Id, Count = dublicating ? 2 : 1, BoundleID = boundleID };
             var cpuConfigElem = new ConfigsElem { Id = 0, CatalogId = CpuElem.Id, Count = dublicating ? 2 : 1, BoundleID = boundleID };
@@ -122,8 +122,6 @@ namespace ASUTP.API.Controllers
                                                                Revision = k.Revision
                                                            }).ToList();
 
-            var cpuList = boundlesJoinCatalogList.Where(x => x.Id == 52 || x.Id == 53).ToList();
-            var b = new { One = boundlesJoinCatalogList, Two = cpuList };
 
                 return Ok(boundlesJoinCatalogList);
         }
@@ -145,10 +143,10 @@ namespace ASUTP.API.Controllers
                                                                        {
                                                                            Id = con.Id,
                                                                            CatalogId = cat.Id,
-                                                                           Name = cat.Name,
+                                                                           Reference = cat.Reference,
                                                                            BoundleID = con.BoundleID,
                                                                            Count = con.Count,
-                                                                           ModuleCount = CalcModuleCount(cat.Name, con.Count),
+                                                                           ModuleCount = CalcModuleCount(cat.Reference, con.Count),
                                                                            Desc = cat.Desc,
                                                                            Currency = cat.Currency,
                                                                            Price_w_taxStr = cat.Price_w_tax.Value.ToString("#,0.00", nfi),
@@ -156,12 +154,15 @@ namespace ASUTP.API.Controllers
                                                                            Price_wo_tax = cat.Price_wo_tax,
                                                                            Price_w_tax = cat.Price_w_tax,
                                                                            VendorName = cat.VendorName,
-                                                                           Total = decimal.Round((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax), 2, MidpointRounding.AwayFromZero),
-                                                                           TotalStr = ((decimal)(CalcModuleCount(cat.Name, con.Count) * cat.Price_wo_tax).Value).ToString("#,0.00", nfi)
+                                                                           Total = decimal.Round((decimal)(CalcModuleCount(cat.Reference, con.Count) * cat.Price_wo_tax), 2, MidpointRounding.AwayFromZero),
+                                                                           TotalStr = ((decimal)(CalcModuleCount(cat.Reference, con.Count) * cat.Price_wo_tax).Value).ToString("#,0.00", nfi)
                                                                        }).Where(x => x.BoundleID == BoundleID).ToListAsync();
 
             // Костыль для добавления элементам цпу стоимости и количества модулей - позже перенести цпу в отдельный архив
-            boundlesJoinCatalogList.Where(x => x.CatalogId >= 55 && x.CatalogId <= 58).ToList().ForEach(y => { y.ModuleCount = y.Count; 
+            boundlesJoinCatalogList.Where(x => x.Reference.Contains("CPU") ||
+                                               x.Reference.Contains("IM")  ||
+                                               x.Reference.Contains("TM")  ||
+                                               x.Reference.Contains("PM")).ToList().ForEach(y => { y.ModuleCount = y.Count; 
                                                                                                  y.Total = decimal.Round((decimal)(y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero);
                                                                                                  y.TotalStr = decimal.Round((decimal)((decimal)y.Count * y.Price_wo_tax), 2, MidpointRounding.AwayFromZero).ToString("#,0.00", nfi);
             });
@@ -242,7 +243,7 @@ namespace ASUTP.API.Controllers
                 //if (elemFromDb != null && elemFromDb.Count != elemFromRequest.Count)
                 //{
                     // Костыль для изменения количества сигналов от ввода количества модулей, тк при создании в Count записывается количество сигналов - позже сделать пересчет количества сигналов в модули на фронте
-                    elemFromDb.Count = elemFromRequest.ModuleCount * Convert.ToInt32(elemFromRequest.Name.Split('.')[3]);
+                    elemFromDb.Count = elemFromRequest.ModuleCount * Convert.ToInt32(elemFromRequest.Reference.Split('.')[3]);
                 //}
             }
 

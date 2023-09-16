@@ -12,7 +12,7 @@
     public class BoundlesJoinCatalogElem
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string? Reference { get; set; }
         public int BoundleID { get; set; }
         public int Count { get; set; }
         public int ModuleCount { get; set; }
