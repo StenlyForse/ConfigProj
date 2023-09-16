@@ -54,7 +54,7 @@ export class ConfiguratorComponent {
       this.configArr[index].count = 0;
     }
     // Записываем значение с резервом
-    this.configArr[index].count =  this.configArr[index].inputCount + this.configArr[index].inputCount * this.reserveValue;
+    this.configArr[index].count =  Math.ceil(this.configArr[index].inputCount + this.configArr[index].inputCount * this.reserveValue);
   }
 
   // Событие при изменении резерва
