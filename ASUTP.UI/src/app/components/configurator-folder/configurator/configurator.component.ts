@@ -94,7 +94,6 @@ export class ConfiguratorComponent {
     this.configuratorService.addConfig(this.combinedArr)
     .subscribe({
       next: (configElem) => {
-        alert('Новая конфигурация добавлена, её уникальный номер: ' + configElem);
         this.router.navigate(['configurator/configList/edit/' + configElem])
       },
       error: (response) => {
