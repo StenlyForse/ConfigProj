@@ -155,7 +155,7 @@ namespace ASUTP.API.Controllers
                                                                            VendorName = cat.VendorName,
                                                                            Total = decimal.Round((decimal)(CalcModuleCount(cat.Reference, con.Count) * cat.Price_wo_tax), 2, MidpointRounding.AwayFromZero),
                                                                            TotalStr = ((decimal)(CalcModuleCount(cat.Reference, con.Count) * cat.Price_wo_tax).Value).ToString("#,0.00", nfi)
-                                                                       }).Where(x => x.BoundleID == BoundleID).ToListAsync();
+                                                                       }).Where(x => x.BoundleID == BoundleID && x.Count > 0).ToListAsync();
 
             // Костыль для добавления элементам цпу стоимости и количества модулей - позже перенести цпу в отдельный архив
             boundlesJoinCatalogList.Where(x => x.Reference.Contains("CPU") ||
