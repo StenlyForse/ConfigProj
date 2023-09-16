@@ -80,7 +80,7 @@ namespace ASUTP.API.Controllers
 
             // Добавляем строку в KPs_Master, пока хардкод
             KpMasterController kpMasterController = new KpMasterController(_aSUTPDbContext);
-            OkObjectResult okState = (OkObjectResult)await kpMasterController.AddRecordToKPMaster("Standart description", 1);
+            OkObjectResult okState = (OkObjectResult)await kpMasterController.AddRecordToKPMaster("Standart description #" + newBoundId, 1);
             int masterRecId = Convert.ToInt32(okState.Value);
 
             // Добавляем строку в KPs_Detail, пока хардкод
@@ -109,15 +109,14 @@ namespace ASUTP.API.Controllers
         //[ActionName("GetConfigByBoundleId")]
         public async Task<IActionResult> GetBoundlesList()
         {
-                var boundlesDistinct = await _aSUTPDbContext.Configs.Select(x => x.BoundleID).Distinct().ToListAsync();
 
                 var boundlesJoinCatalogList = _aSUTPDbContext.Boundles.Join(_aSUTPDbContext.KPs_Master,
                                                            b => b.Id,
                                                            k => k.Id,
                                                            (b, k) => new
                                                            {
-                                                               Desc = b.Desc,
-                                                               DateTimeKP = k.DateTime.ToString("dd.MM.yyyy hh:mm"),
+                                                               Desc = k.Desc,
+                                                               DateTimeKP = k.DateTime/*.ToString("dd.MM.yyyy hh:mm")*/,
                                                                Id = k.Id,
                                                                Revision = k.Revision
                                                            }).ToList();

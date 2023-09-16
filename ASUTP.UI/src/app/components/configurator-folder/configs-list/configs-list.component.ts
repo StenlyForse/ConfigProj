@@ -20,6 +20,9 @@ export class ConfigsListComponent {
     this.configuratorService.getBoundlesList().subscribe(
       (dat) => {
         this.items = dat; // Заполнение массива данными из API
+        for (let i = 0; i < this.items.length; i++) {
+          this.items[i].dateTimeKP = new Date(this.items[i].dateTimeKP).toLocaleString("ru-RU")
+        }
       },
       (error) => {
         console.log('Ошибка при получении списка:', error);
