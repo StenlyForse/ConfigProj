@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+  import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfiguratorService } from 'src/app/services/configurator.service';
 
@@ -90,5 +90,6 @@ export class EditConfigElemComponent {
     win?.document.close(); 	// CLOSE THE CURRENT WINDOW.
 
     win?.print();    // PRINT THE CONTENTS.
+    win!.onfocus = function () { setTimeout(function () { win?.close(); }, 500); } // Print and auto-close window
   }
 }
