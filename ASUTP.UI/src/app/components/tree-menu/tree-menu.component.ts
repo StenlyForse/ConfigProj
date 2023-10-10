@@ -28,7 +28,7 @@ interface MenuNodeChild {
       name: 'Настойки',
       children: [
         {name: 'Каталог', route: '/catalog'},
-        {name: 'Пользователь', route: '/catalog/add'},
+        {name: 'Добавить в каталог', route: '/catalog/add'},
       ],
     },
   ];
