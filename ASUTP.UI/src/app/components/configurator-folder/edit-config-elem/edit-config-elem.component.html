@@ -1,5 +1,5 @@
 <div class="px-2 container mx-auto">
-  <form class="config mt-5" #form1="ngForm" (ngSubmit)="updateBoundlesDataList()">
+  <form class="config mt-5" #form1="ngForm" id = "titleLabels" (ngSubmit)="updateBoundlesDataList()">
     <div class="config-column">
       <div class="config__info">
         <div class="config-info-title">Дата создания:</div>
@@ -7,23 +7,11 @@
       </div>
       <div class="config__info info-input">
         <div class="config-info-title"> Описание:</div>
-        <div class="config-info-text">
-            <input
-            class="config__title-input"
-            [(ngModel)]="configHeader.Title"
-            [ngModelOptions]="{ standalone: true }"
-          />
-        </div>
+        <div class="config-info-text">{{ configHeader.Title }}</div>
       </div>
       <div class="config__info info-input">
         <div class="config-info-title">Ревизия:</div>
-        <div class="config-info-text">
-            <input
-            class="config__title-input version"
-            [(ngModel)]="configHeader.Revision"
-            [ngModelOptions]="{ standalone: true }"
-          />
-        </div>
+        <div class="config-info-text">{{ configHeader.Revision }}</div>
       </div>
     </div>
   </form>

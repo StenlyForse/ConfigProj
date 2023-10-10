@@ -61,14 +61,19 @@ export class EditConfigElemComponent {
 
   PrintTable() {
     
+    var titleLabels = document.getElementById("titleLabels")?.outerHTML;
     var element = document.getElementById("KPtable")?.outerHTML;
+    var picture = '<img src="../../../assets/img/incomSys.jpg" class="center"/>';
+
     const html = '<table><tr><th>Header 1</th><th>Header 2</th></tr><tr><td>Data 1</td><td>Data 2</td></tr></table>';
   
     var style = "<style>";
+    style = style + ".center {display: block; margin-left: auto; margin-right: auto;}" //центрирование картинки
     style = style + "table {border: solid 1px #bacbe6; border-collapse: collapse;margin: 0;width: 100%;}";
     style = style + "table tr {padding: .15em;}";
     style = style + "thead {display: table-row-group;}"; // Отображение шапки только на первой странице
     style = style + "thead tr {align-items: center;vertical-align: middle; background-color: #cfe2ff; }";
+    style = style + ".config-column {display: flex;justify-content: flex-start;flex-direction: column;flex-wrap: wrap;gap: 25px; }"
 
     style = style + "tr:nth-child(even) {background-color: #f2f2f2;}";
     style = style + "table th,table td {font-size: 1em;padding: 1em;text-align: center; border: solid 1px #bacbe6;}";
@@ -81,6 +86,8 @@ export class EditConfigElemComponent {
     win?.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
     win?.document.write('</head>');
     win?.document.write('<body>');
+    win?.document.write(picture);
+    win?.document.write(titleLabels!); 
     win?.document.write(element!);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
     win?.document.write('</body></html>');
     if (win?.document.title != undefined){
