@@ -4,6 +4,27 @@
     <!-- <div class="container"> -->
     <h1 class="budget__title">Новый расчет</h1>
 
+    <form class="config mt-5 mb-3" #form1="ngForm">
+      <div class="config-column">
+        <div class="config__info">
+          <div class="config-info-title">Дата создания:</div>
+          <div class="config-info-text"></div>
+        </div>
+        <div class="config__info info-input">
+          <div class="config-info-title">Описание:</div>
+          <div class="config-info-text">
+            <input />
+          </div>
+        </div>
+        <div class="config__info info-input">
+          <div class="config-info-title">Ревизия:</div>
+          <div class="config-info-text">
+            <input />
+          </div>
+        </div>
+      </div>
+    </form>
+
     <div class="control-room">
       <div class="station">
         <div class="input__item">
@@ -61,6 +82,16 @@
 
     <div class="system-options mt-5">
       <div class="input__item">
+        <div class="input__item-text">Ширина шкафа, мм</div>
+        <input
+          class="input__item-input"
+          type="number"
+          placeholder="0"
+          aria-label="Reserv"
+          (change)="onChangeReserve($event)"
+        />
+      </div>
+      <div class="input__item">
         <div class="input__item-text">Резерв, %</div>
         <input
           class="input__item-input"
@@ -74,7 +105,7 @@
       <div class="input__item select">
         <div class="input__item-text">Дублирование</div>
         <select
-          class="form-select input__item-input iput-select "
+          class="form-select input__item-input iput-select"
           aria-label="Default select example"
           (change)="onChangeDublicating($event)"
         >
@@ -138,40 +169,7 @@
       </div>
     </form>
 
-
     <!--План: инпутом собираю все цифры, отправляю в бек с id и названием, там вычленяю делитель, делю и записываю в таблицу Configs с catalogID и в inputCount кол-во штук-->
     <!--потом на отдельной странице выбираю BoundleID и по нему вывожу элементы с описанием из каталога и их кол-во-->
-    <!-- <form #form2="ngForm">
-      <div class="input">
-        <tr>
-          <th>Название модуля</th>
-          <th>Описание</th>
-          <th>Количество сигналов</th>
-          <th>Количество сигналов с резервом</th>
-        </tr>
-        <div
-          class="input__item"
-          *ngFor="let catalogElem of controllers; let i = index"
-        >
-          <div class="input__item-text">{{ catalogElem.name }}</div>
-          <div class="input__item-text">{{ catalogElem.desc }}</div>
-          <input
-            class="input__item-input"
-            type="number"
-            placeholder="0"
-            aria-label="First name"
-            name="qty_{{ i }}"
-            [(ngModel)]="configArr[i].inputCount"
-            [ngModelOptions]="{ standalone: true }"
-            (blur)="onInputBlur(i)"
-          />
-          <div class="input__item-text">{{ configArr[i].count }}</div>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary" (click)="addConfig()">
-        Создать
-      </button>
-    </form> -->
-    <!-- </div> -->
   </div>
 </div>
