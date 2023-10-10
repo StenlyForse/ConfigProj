@@ -18,6 +18,8 @@ import { ConfigsListComponent } from './components/configurator-folder/configs-l
 import { EditConfigElemComponent } from './components/configurator-folder/edit-config-elem/edit-config-elem.component';
 import { DataTablesModule } from "angular-datatables";
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { TreeMenuComponent } from './components/tree-menu/tree-menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     SidebarComponent,
     ConfigsListComponent,
     EditConfigElemComponent,
-    NavbarComponent,    
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     FormsModule,
     MatPaginatorModule,
     DataTablesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TreeMenuComponent,
+    BrowserAnimationsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

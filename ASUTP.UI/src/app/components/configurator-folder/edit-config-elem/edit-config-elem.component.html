@@ -8,6 +8,7 @@
       <div class="config__info info-input">
         <div class="config-info-title"> Описание:</div>
         <div class="config-info-text">
+            {{configHeader.Title}}
             <input
             class="config__title-input"
             [(ngModel)]="configHeader.Title"
@@ -18,6 +19,7 @@
       <div class="config__info info-input">
         <div class="config-info-title">Ревизия:</div>
         <div class="config-info-text">
+            {{configHeader.Revision}}
             <input
             class="config__title-input version"
             [(ngModel)]="configHeader.Revision"
