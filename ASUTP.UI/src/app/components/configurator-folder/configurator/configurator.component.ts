@@ -17,6 +17,8 @@ export class ConfiguratorComponent {
   cpuArr: ConfigElem[] = [];
   combinedArr: any = {};
   dublicating: boolean = false;
+  description: string = "";
+  revision: number = 1;
 
   constructor(private configuratorService: ConfiguratorService, private router: Router) { }
 
@@ -89,7 +91,7 @@ export class ConfiguratorComponent {
         this.cpuArr[i].count = 1;
       }
     }
-    this.combinedArr = {cpu: this.cpuArr, controllers: this.configArr, dublicatingCPU: this.dublicating}
+    this.combinedArr = {cpu: this.cpuArr, controllers: this.configArr, dublicatingCPU: this.dublicating, description: this.description, revision: this.revision}
 
     this.configuratorService.addConfig(this.combinedArr)
     .subscribe({
@@ -119,5 +121,14 @@ export class ConfiguratorComponent {
       
     }*/
     this.dublicating = false;
+  }
+
+  onChangeDesc(event: any): void {
+    // Получение по изменению
+    this.description = event.target.value; 
+  }
+  onChangeRevison(event: any): void {
+    // Получение по изменению
+    this.revision = event.target.value;
   }
 }

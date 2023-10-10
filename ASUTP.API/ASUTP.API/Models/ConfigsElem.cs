@@ -51,5 +51,7 @@
         public bool DublicatingCPU { get; set; }
         public ConfigsElem[]? cpu { get; set; }
         public ConfigsElem[]? controllers { get; set; }
+        public string Description { get; set; }
+        public int Revision { get; set;}
     }
 }

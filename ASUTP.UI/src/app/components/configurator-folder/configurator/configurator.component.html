@@ -13,13 +13,19 @@
         <div class="config__info info-input">
           <div class="config-info-title">Описание:</div>
           <div class="config-info-text">
-            <input />
+            <input 
+            type="string"
+            value="Стандартное описание"
+            (change)="onChangeDesc($event)"/>
           </div>
         </div>
         <div class="config__info info-input">
           <div class="config-info-title">Ревизия:</div>
           <div class="config-info-text">
-            <input />
+            <input 
+            type="number"
+            value= 1
+            (change)="onChangeRevison($event)"/>
           </div>
         </div>
       </div>
@@ -88,7 +94,6 @@
           type="number"
           placeholder="0"
           aria-label="Reserv"
-          (change)="onChangeReserve($event)"
         />
       </div>
       <div class="input__item">

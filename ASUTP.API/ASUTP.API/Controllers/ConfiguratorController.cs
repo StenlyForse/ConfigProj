@@ -78,9 +78,14 @@ namespace ASUTP.API.Controllers
             await _aSUTPDbContext.Configs.AddRangeAsync((ConfigsElem[])InvisibleCpuElems);
             await _aSUTPDbContext.SaveChangesAsync();
 
+            if (requestData.Description == string.Empty)
+            {
+                requestData.Description = "Standart description #" + newBoundId;
+            }
+
             // Добавляем строку в KPs_Master, пока хардкод
             KpMasterController kpMasterController = new KpMasterController(_aSUTPDbContext);
-            OkObjectResult okState = (OkObjectResult)await kpMasterController.AddRecordToKPMaster("Standart description #" + newBoundId, 1);
+            OkObjectResult okState = (OkObjectResult)await kpMasterController.AddRecordToKPMaster(requestData.Description, requestData.Revision);
             int masterRecId = Convert.ToInt32(okState.Value);
 
             // Добавляем строку в KPs_Detail, пока хардкод
