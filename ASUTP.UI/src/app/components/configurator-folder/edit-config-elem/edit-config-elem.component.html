@@ -33,7 +33,7 @@
         <th scope="col">Кол.</th>
         <th scope="col">Валюта</th>
         <th scope="col">Цена без НДС</th>
-        <th scope="col">Цена с НДС</th>
+       <!-- <th scope="col">Цена с НДС</th>-->
         <th scope="col">Вендор</th>
         <th scope="col">Итого</th>
       </tr>
@@ -47,9 +47,9 @@
         </td>
         <td data-title="Валюта">{{ configElem.currency }}</td>
         <td data-title="Цена без НДС">{{ configElem.price_wo_taxStr }}</td>
-        <td data-title="Цена с НДС">{{ configElem.price_w_taxStr }}</td>
+        <!--<td data-title="Цена с НДС">{{ configElem.price_w_taxStr }}</td>-->
         <td data-title="Вендор">{{ configElem.vendorName }}</td>
-        <td data-title="Итого">{{ configElem.totalStr }}</td>
+        <td style="max-width:100%; white-space:nowrap;" data-title="Итого">{{ configElem.totalStr }}</td>
       </tr>
     </tbody>
   </table>
