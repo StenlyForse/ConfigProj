@@ -18,6 +18,7 @@ export class ConfiguratorComponent {
   combinedArr: any = {};
   dublicating: boolean = false;
   description: string = "";
+  datetime: string = "";
   revision: number = 1;
 
   constructor(private configuratorService: ConfiguratorService, private router: Router) { }
@@ -29,6 +30,9 @@ export class ConfiguratorComponent {
       next: (catalog) => {
         this.controllers = catalog.controllers;
         this.cpu = catalog.cpu;
+        this.description = catalog.description;
+        this.revision = catalog.revision;
+        this.datetime = catalog.datetime;
         this.initializeItems();
       },
       error: (response) => {

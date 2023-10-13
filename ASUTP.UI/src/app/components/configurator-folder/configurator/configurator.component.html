@@ -8,14 +8,21 @@
       <div class="config-column">
         <div class="config__info">
           <div class="config-info-title">Дата создания:</div>
-          <div class="config-info-text"></div>
+          <div class="config-info-text">
+            <input 
+            [size]="this.datetime.length"
+            type="string"
+            value="{{ this.datetime }}"
+            readonly/>
+          </div>
         </div>
         <div class="config__info info-input">
           <div class="config-info-title">Описание:</div>
           <div class="config-info-text">
             <input 
+            [size]="this.description.length"
             type="string"
-            value="Стандартное описание"
+            value="{{ this.description }}"
             (change)="onChangeDesc($event)"/>
           </div>
         </div>
